@@ -1,6 +1,6 @@
-package org.jetbrains.plugins.template.services
+package com.github.boheastill.pd2.services
 
-import org.jetbrains.plugins.template.MyBundle
+import com.github.boheastill.pd2.MyBundle
 
 class MyApplicationService {
 
