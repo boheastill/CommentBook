@@ -8,11 +8,41 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <applicationService serviceImplementation="com.github.boheastill.pd2.services.MyApplicationService"/>
+        <applicationService serviceImplementation="com.github.boheastill.pd2.services.WriterService"/>
         <projectService serviceImplementation="com.github.boheastill.pd2.services.MyProjectService"/>
     </extensions>
 
     <applicationListeners>
+
         <listener class="com.github.boheastill.pd2.listeners.MyProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
+    <actions>
+        <action id="demo.hello.world" class="com.github.boheastill.pd2.actions.HelloWorldAction" text="hi"
+                description="打个招呼的action">
+            <add-to-group group-id="GenerateGroup" anchor="first"/>
+        </action>
+        <group id="com.star.javadoc" text="EasyJavadoc" description="EasyJavadoc" popup="true">
+            <separator/>
+            <group id="EasyJavadocSubGroup"/>
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+            <action id="javadoc.generator" class="com.github.boheastill.pd2.actions.ReaderAction"
+                    text="GenerateJavadoc"
+                    description="GenerateJavadoc">
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl BACK_SLASH"/>
+            </action>
+        </group>
+    </actions>
+    <!--    &lt;!&ndash; resource-bundle 对应怕配置文件名 &ndash;&gt;
+        <actions resource-bundle="messages.MyBundle">
+            <group id="NewTGroupInProjectView"
+                   class="com.github.boheastill.pd2.NewTActionGroup"
+                   popup="true">
+                <separator/>
+                <add-to-group group-id="ProjectViewPopupMenu" anchor="after" relative-to-action="WeighingNewGroup"/>
+                <separator/>
+            </group>
+
+        </actions>-->
+
 </idea-plugin>
