@@ -1,7 +1,9 @@
 package com.github.boheastill.pd2.entity
 
+import com.github.boheastill.pd2.services.ReaderService
 import com.github.boheastill.pd2.services.textStr
 import com.github.boheastill.pd2.util.groupDiv
+import java.io.File
 
 class BookEntity {
     var souceText: String
@@ -58,7 +60,7 @@ class BookEntity {
     }
 
     /*显示标记页*/
-    fun signNum(): String {
+    fun displaySignNum(): String {
         var textByPageNum = getTextByPageNum(disChachNum)
         return textByPageNum
     }
@@ -78,5 +80,26 @@ class BookEntity {
         var findpageNum = groupDiv(souceText.indexOf(findStr), pageContenSize)
 
         return getTextByPageNum(findpageNum)
+    }
+
+    fun loadFile2String(filePath: String) {
+
+        //加载文件
+
+        val file = File(filePath)
+        val fileReader = file.bufferedReader()
+        var text = fileReader.readText()
+        fileReader.close()
+        //初始化
+        this.souceText = text
+        this.souceTextLength = text.length
+        this.pageContenSize = 100
+        this.maxPageNum = groupDiv(souceText.length, pageContenSize)
+        //输出信息
+        println("文本长度: ${souceText.length}")
+        println("页面长度: $pageContenSize")
+        println("页数: $maxPageNum")
+
+        ReaderService().display = true
     }
 }

@@ -16,9 +16,10 @@ class ReaderService {
     //    var cstart: Int = 0
 //    var cend: Int = 0
     var chachText: String = ""
-    var display: Boolean = true    //仅第一次触发为真
+    public var display: Boolean = true    //仅加载第一次触发为真
 
     private val bookEntity: BookEntity = BookEntity()
+    var chachpath = ""
 
     /**
      * 语义解析：
@@ -34,25 +35,36 @@ class ReaderService {
      * //todo 持久化含义集合，并支持自定义映射，增加映射冲突检查
      * */
     fun resoveLeagueStruct(editor: Editor, project: Project): String {
+//        val path = "D:\\down\\webGet\\ZhuJieMoRiZaiXian.txt"
         //如果是展示，直接返回
         if (display) {
             display = false
-            return bookEntity.signNum()
+            return bookEntity.displaySignNum()
         }
 
         //分析语义
         var classComnenText = getClassComent(editor, project)
-        var keyWord = util.regText(classComnenText, Pattern.compile("(?<=(\\^|……))[^,.，。:：]+?(?=(\\^|……))"))
+        var keyWord = util.regText(classComnenText, Pattern.compile("(?<=(\\^|……))[^,，。：]+?(?=(\\^|……))"))
 
         //无语义，返回下一个文本
         if (keyWord == null || keyWord.substring(0, 1) == "/" || keyWord.substring(0, 1) == "\\") {
             return bookEntity.nextPageNum(bookEntity.disChachNum, 1)
         }
-
         //按语义，返回
         var text = "无法解析语义"
         println("keyWord:$keyWord")
         when (keyWord.substring(0, 1)) {
+            "加", "载", "读" -> {
+                var path = keyWord.substring(1)
+                if (path != chachpath) {
+                    bookEntity.loadFile2String(path)
+                    chachpath = path
+                    text = bookEntity.displaySignNum()
+                } else {
+                    text = bookEntity.nextPageNum(bookEntity.disChachNum, 1)
+                }
+            }
+
             "l", "左", "前", "上" -> {
                 text = bookEntity.previousPageNum(bookEntity.disChachNum, 1)
             }
@@ -151,7 +163,7 @@ class ReaderService {
         var ftext = text.trim().replace("\n", "").replace("\r", "").replace("\t", "")
         var length = ftext.length
         var stringBuilder = StringBuilder(ftext)
-        var rawMax= 3
+        var rawMax = 3
         for (rawLine in 1 until rawMax) {
             var div = length.toDouble() * rawLine.toDouble() / rawMax.toDouble()
 //            println("div: ${div}")
@@ -186,10 +198,11 @@ class ReaderService {
             it.children.forEach {
                 if (it.elementType.toString() == "C_STYLE_COMMENT") {
                     classConment = it.text
+                    return classConment
                 }
             }
         }
-        return classConment
+        return ""
     }
 
 

@@ -18,6 +18,7 @@ class ReaderAction : AnAction() {
      * todo 持久化   gui
      */
     override fun actionPerformed(anActionEvent: AnActionEvent) {
+
         //1.获取参数
         val editor: Editor = anActionEvent.getRequiredData(CommonDataKeys.EDITOR)
         val project: Project = anActionEvent.getRequiredData(CommonDataKeys.PROJECT)
