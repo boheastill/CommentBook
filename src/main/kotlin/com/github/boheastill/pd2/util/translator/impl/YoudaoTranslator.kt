@@ -1,10 +1,7 @@
 package com.github.boheastill.pd2.util.translator.impl
 
 import com.github.boheastill.pd2.util.HttpUtil
-import com.github.boheastill.pd2.util.HttpUtil.encode
-import com.github.boheastill.pd2.util.HttpUtil.get
 import com.github.boheastill.pd2.util.JsonUtil
-import com.github.boheastill.pd2.util.JsonUtil.fromJson
 import com.intellij.openapi.diagnostic.Logger
 import org.apache.commons.lang3.StringUtils
 import java.util.*

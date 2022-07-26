@@ -1,72 +1,35 @@
 package com.github.boheastill.pd2.actions
 
-import com.github.boheastill.pd2.services.WriterService
-import com.github.boheastill.pd2.services.textStr
+import com.github.boheastill.pd2.services.ReaderService
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
-import com.intellij.openapi.actionSystem.PlatformDataKeys
+import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.components.ServiceManager
-import com.intellij.psi.PsiDocumentManager
-import com.intellij.psi.PsiElement
-import com.intellij.psi.tree.IElementType
-import com.intellij.psi.util.PsiUtilBase
-import com.intellij.psi.util.elementType
-import com.jetbrains.rd.util.remove
-import javax.swing.tree.DefaultMutableTreeNode
+import com.intellij.openapi.editor.Editor
+import com.intellij.openapi.project.Project
+
 
 class ReaderAction : AnAction() {
-    //获取Service
-//    private val translatorService: TranslatorService = ServiceManager.getService(
-//        TranslatorService::class.java
-//    )
-    private val writerService: WriterService = ServiceManager.getService(WriterService::class.java)
+    private val readerService: ReaderService = ServiceManager.getService(ReaderService::class.java)
 
-    var startIdx = 0
-    val maxIndex = textStr.length - 1
-    val contenLenth = 50
 
+    /**
+     * 触发事件
+     * todo 持久化   gui
+     */
+    override fun actionPerformed(anActionEvent: AnActionEvent) {
+        //1.获取参数
+        val editor: Editor = anActionEvent.getRequiredData(CommonDataKeys.EDITOR)
+        val project: Project = anActionEvent.getRequiredData(CommonDataKeys.PROJECT)
+        //2.解析功能语义 && 3.分页逻辑3.0
+        var tarText = readerService.resoveLeagueStruct(editor, project)
+        //4.展示结果
+        readerService.showText(editor, project, tarText)
+
+    }
 
     /*业务逻辑*/
-    override fun actionPerformed(anActionEvent: AnActionEvent) {
-//        textReader(anActionEvent)
-        //注释生成
-//        val psiElement = anActionEvent.getData(LangDataKeys.PSI_ELEMENT)
-
-        var project = anActionEvent.getProject() ?: return
-        var editor = anActionEvent.getData(PlatformDataKeys.EDITOR) ?: return
-        var psiFile = PsiUtilBase.getPsiFileInEditor(editor, project) ?: return
-        var fileName = psiFile.getName();
-        var document = PsiDocumentManager.getInstance(project).getDocument(psiFile);
-//        var fileNode = DefaultMutableTreeNode(fileName);
-        // 遍历当前对象的所有属性
-        psiFile.children.forEach {
-            if (it.elementType.toString() == "CLASS") {
-                it.children.forEach {
-                    if (it.elementType.toString() == "C_STYLE_COMMENT") {
-                        var comment = it.text
-                        var commentStr = comment.substring(2, comment.length - 2)
-                        println(commentStr)
-                        //替换注释
-                        commentStr="测试替换文本"
-                        writerService.write(anActionEvent,commentStr)
-                    }
-                }
-            }
-        }
-
-    }
-
-    private fun textReader(anActionEvent: AnActionEvent) {
-        //取(startIdx + contenLenth) 和 maxIndex 中小的那个
-        //从头再来
-        if (startIdx >= maxIndex) {
-            startIdx = 0
-        }
-        val endIdx = Math.min(startIdx + contenLenth, maxIndex)
-        var text = textStr.substring(startIdx, endIdx)
-        startIdx += contenLenth
-        //这里就直接替换了原文
-        writerService.write(anActionEvent, text)
-    }
 }
+
+
 

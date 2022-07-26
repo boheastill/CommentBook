@@ -2,7 +2,6 @@ package com.github.boheastill.pd2.util.translator.impl
 
 import com.github.boheastill.pd2.util.translator.Translator
 import java.util.concurrent.ConcurrentHashMap
-import kotlin.collections.MutableMap
 import kotlin.collections.set
 
 /**

@@ -9,9 +9,6 @@ import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.EditorModificationUtil
 import com.intellij.openapi.project.Project
-import com.intellij.psi.PsiElement
-import com.intellij.psi.codeStyle.CodeStyleManager
-import com.intellij.util.ThrowableRunnable
 import org.apache.commons.lang3.StringUtils
 
 
@@ -51,16 +48,16 @@ class WriterService {/*fun write(project: Project?, psiElement: PsiElement, comm
             return
         }
         try {
-            WriteCommandAction.writeCommandAction(project).run<Throwable>( {
+            WriteCommandAction.writeCommandAction(project).run<Throwable>({
                 val start = editor.getSelectionModel().selectionStart
                 //这里做的编辑会改掉代码
                 EditorModificationUtil.insertStringAtCaret(editor, text)
                 editor.getSelectionModel().setSelection(start, start + text.length)
             })
-            ApplicationManager.getApplication().runWriteAction(Runnable {
-                CommandProcessor.getInstance().executeCommand(project, Runnable {
+            ApplicationManager.getApplication().runWriteAction({
+                CommandProcessor.getInstance().executeCommand(project, {
                     // 具体操作
-                }, "","")
+                }, "", "")
             })
 
         } catch (throwable: Throwable) {
@@ -73,6 +70,7 @@ class WriterService {/*fun write(project: Project?, psiElement: PsiElement, comm
         //text 格式化
         var ftext = text.trim().replace("\n", "").replace("\r", "").replace("\t", "")
             .replace("。", "。\n").replace(".", "\t.\n") //去除制表符
+        var wapperText = "/* $ftext */"
 
         val project = anActionEvent.getData(LangDataKeys.PROJECT) ?: return //?:表示如果project为空，则返回null
         //取出选中的文本
@@ -84,7 +82,6 @@ class WriterService {/*fun write(project: Project?, psiElement: PsiElement, comm
             //todo 判断选中的是不是注释区域
             val blank = true// StringUtils.isBlank(selectedText)
             //把text包装为注释
-            var wapperText = "/* $ftext */"
             if (blank) {
                 //这里就直接替换了原文
                 write(project, editor, wapperText)
@@ -103,7 +100,7 @@ class WriterService {/*fun write(project: Project?, psiElement: PsiElement, comm
 }
 
 var textStr =
-    "豫章故郡，洪都新府。星分翼轸，地接衡庐。襟三江而带五湖，控蛮荆而引瓯越。物华天宝，龙光射牛斗之墟；人杰地灵，徐孺下陈蕃之榻。雄州雾列，俊采星驰。台隍枕夷夏之交，宾主尽东南之美。都督阎公之雅望，棨戟遥临；宇文新州之懿范，襜帷暂驻。十旬休假，胜友如云；千里逢迎，高朋满座。腾蛟起凤，孟学士之词宗；紫电青霜，王将军之武库。家君作宰，路出名区；童子何知，躬逢胜饯。\n" +
+    "-豫章故郡，洪都新府。星分翼轸，地接衡庐。襟三江而带五湖，控蛮荆而引瓯越。物华天宝，龙光射牛斗之墟；人杰地灵，徐孺下陈蕃之榻。雄州雾列，俊采星驰。台隍枕夷夏之交，宾主尽东南之美。都督阎公之雅望，棨戟遥临；宇文新州之懿范，襜帷暂驻。十旬休假，胜友如云；千里逢迎，高朋满座。腾蛟起凤，孟学士之词宗；紫电青霜，王将军之武库。家君作宰，路出名区；童子何知，躬逢胜饯。\n" +
             "\n" +
             "时维九月，序属三秋。潦水尽而寒潭清，烟光凝而暮山紫。俨骖騑于上路，访风景于崇阿；临帝子之长洲，得天人之旧馆。层峦耸翠，上出重霄；飞阁流丹，下临无地。鹤汀凫渚，穷岛屿之萦回；桂殿兰宫，即冈峦之体势。\n" +
             "\n" +
@@ -123,4 +120,4 @@ var textStr =
             "\n" +
             "闲云潭影日悠悠，物换星移几度秋。\n" +
             "\n" +
-            "阁中帝子今何在？槛外长江空自流。\n"
+            "阁中帝子今何在？槛外长江空自流。-\n"
