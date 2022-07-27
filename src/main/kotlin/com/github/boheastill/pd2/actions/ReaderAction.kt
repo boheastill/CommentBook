@@ -7,6 +7,7 @@ import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.components.ServiceManager
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.wm.ToolWindowManager
 
 
 class ReaderAction : AnAction() {
@@ -26,6 +27,7 @@ class ReaderAction : AnAction() {
         var tarText = readerService.resoveLeagueStruct(editor, project)
         //4.展示结果
         readerService.showText(editor, project, tarText)
+
 
     }
 

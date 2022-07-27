@@ -10,8 +10,8 @@
         <!--        <applicationService serviceImplementation="com.github.boheastill.pd2.services.MyApplicationService"/>-->
         <applicationService serviceImplementation="com.github.boheastill.pd2.services.WriterService"/>
         <applicationService serviceImplementation="com.github.boheastill.pd2.services.ReaderService"/>
-        <!--        <applicationService serviceImplementation="com.github.boheastill.pd2.entity.BookEntity"/>-->
-        <!--        <projectService serviceImplementation="com.github.boheastill.pd2.services.MyProjectService"/>-->
+        <toolWindow id="Comment Book" secondary="true" icon="AllIcons.General.Modified" anchor="right"
+                    factoryClass="com.github.boheastill.pd2.toolWindow.TollFactory"/>
     </extensions>
 
 
