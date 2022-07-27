@@ -15,6 +15,8 @@ class TollFactory : ToolWindowFactory {
      * @param toolWindow current tool window
      */
     override fun createToolWindowContent(project: Project, toolWindow: ToolWindow) {
+        //获取AnActionEvent
+
 //        println("创建工具窗口")
         //todo 了解单构造函数为什么传入idea的工具窗口，和form、conten的关系
         //创建自定义组件

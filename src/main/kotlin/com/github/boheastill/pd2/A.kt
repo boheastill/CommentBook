@@ -1,12 +1,29 @@
-package com.github.boheastill.pd2;
-/*^l^*/
-public class A {
-  /*
-	 临；宇文新州之懿范，襜帷暂驻。十旬休假，胜友如云；千里逢迎，高朋
-	满座。腾蛟起凤，孟学士之词宗；紫电青霜，王将军之武库。家君作宰
-	，路出名区；童子何知，躬逢胜饯。时维九月，序属三秋。潦水尽而寒潭清，烟
-*/
-    public static void main(String[] args) {
+package com.github.boheastill.pd2
 
+import com.intellij.openapi.components.ApplicationComponent
+
+/*^l^*/
+class A : ApplicationComponent {
+    // Returns the component name (any unique string value).
+    override fun getComponentName(): String {
+        return "MyPlugin"
     }
+
+    // If you register the MyPluginRegistration class in the <application-components> section of
+    // the plugin.xml file, this method is called on IDEA start-up.
+    override fun initComponent() {
+        println("初始化组件")
+        /*        ActionManager am = ActionManager.getInstance();
+        TextBoxes action = new TextBoxes();
+        // Passes an instance of your custom TextBoxes class to the registerAction method of the ActionManager class.
+        am.registerAction("MyPluginAction", action);
+        // Gets an instance of the WindowMenu action group.
+        DefaultActionGroup windowM = (DefaultActionGroup) am.getAction("WindowMenu");
+        // Adds a separator and a new menu command to the WindowMenu group on the main menu.
+        windowM.addSeparator();
+        windowM.add(action);*/
+    }
+
+    // Disposes system resources.
+    override fun disposeComponent() {}
 }

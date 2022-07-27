@@ -7,7 +7,6 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <!--        <applicationService serviceImplementation="com.github.boheastill.pd2.services.MyApplicationService"/>-->
         <applicationService serviceImplementation="com.github.boheastill.pd2.services.WriterService"/>
         <applicationService serviceImplementation="com.github.boheastill.pd2.services.ReaderService"/>
         <toolWindow id="Comment Book" secondary="true" icon="AllIcons.General.Modified" anchor="right"
@@ -16,17 +15,25 @@
 
 
     <actions>
-
-        <group id="com.star.javadoc" text="EasyJavadoc" description="EasyJavadoc" popup="true">
+        <group id="com.star.javadoc" text="CommentBook" description="a plugeu" popup="true">
             <separator/>
-            <group id="EasyJavadocSubGroup"/>
+            <group id="commentBookGroup"/>
             <add-to-group group-id="ToolsMenu" anchor="last"/>
             <action id="javadoc.generator" class="com.github.boheastill.pd2.actions.ReaderAction"
-                    text="GenerateJavadoc"
-                    description="GenerateJavadoc">
+                    text="展示" icon="AllIcons.General.Modified" description="display">
                 <keyboard-shortcut keymap="$default" first-keystroke="ctrl BACK_SLASH"/>
+            </action>
+            <action id="javadoc.generator2" class="com.github.boheastill.pd2.actions.ReaderAction"
+                    text="搜索" icon="AllIcons.General.Modified" description="display">
+                <mouse-shortcut keystroke="control exeButton doubleClick" keymap="$default"/>
             </action>
         </group>
     </actions>
 
+    <application-components>
+        <!-- Add your application components here -->
+        <component>
+            <implementation-class>com.github.boheastill.pd2.A</implementation-class>
+        </component>
+    </application-components>
 </idea-plugin>
