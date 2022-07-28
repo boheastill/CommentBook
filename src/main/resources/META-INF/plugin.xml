@@ -1,11 +1,60 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
-<idea-plugin>
+<idea-plugin url="https://plugins.jetbrains.com/plugin/19575-commentbookplugue?preview=true">
     <id>com.github.boheastill.pd2</id>
-    <name>CommentBookPlugue</name>
-    <vendor>BoheaStill</vendor>
+    <name>CommentBook</name>
+    <vendor url="https://github.com/boheastill/pd2" email="284420441@qq.com">BoheaStill
+    </vendor>
+    <!--版本等见gradle.properties，这里暂测不生效-->
+    <!--    <version>0.0.2-Alpha</version>-->
+    <!--    <idea-version since-build="211.*" until-build="222.*.*"/>-->
 
     <depends>com.intellij.modules.platform</depends>
+    <!--本地运行不取这里，除非前面再加一个。发布也部取这里，直接页面上传才行。以后redme的俩个注释之间，符合朴素预期-->
+    <description>
+        <![CDATA[
+        <p>plugin描述： 一个插件，让diea的注释区变成你的文本阅读器，Crtl+\ 为翻页键
+        <ul>
+            <li>支持向前翻页）、向后翻页、安全模式、搜索文本页码、跳转指定页/比例、存/取书签、加载指定路径txt文档等功能</li>
+            <li>先在右侧工具栏的GUI设置好要进行的操作，然后无脑Ctrl+\ 翻页/搜索/查询就行</li>
+        </ul>
+        </p>
 
+        <p>An IDEA built-in TXT File reader
+        <ul>
+            <li> support forward page (+ number, number of customized to be completed)</li>
+            <li>backward page (+ number)</li>
+            <li>,safe mode</li>
+            <li>search text page number</li>
+            <li> jump to specified page/proportion</li>
+            <li>save/fetch bookmarks</li>
+            <li>load specified path TXT document (to be completed)</li>
+            <li>download (to be completed) Display at the cursor position</li>
+            <li>etc</li>
+        </ul>
+        </p>
+                 ]]>
+    </description>
+    <change-notes>
+        <![CDATA[
+        <ul>
+            <li><b>0.0.2</b>
+                1.在IDEA的右侧工具栏页面增加了GUI<br>
+                2.设计了一个插件图标<br>
+                3.初步写了使用文档<br>
+                4.支持加载本地文件<br>
+                1. The GUI is added to the right toolbar page of IDEA<br>
+                2. Design a plug-in icon<br>
+                3. Write a preliminary use document<br>
+                4.load specified path TXT document
+            </li>
+            <li>
+                <b>0.0.1</b>支持向前翻页）、向后翻页、安全模式、搜索文本页码、跳转指定页/比例、存/取书签、加载指定路径txt文档<br>
+                support forward page turning), backward page turning, safe mode, search text page number, jump to
+                specified page/proportion, save/fetch bookmark,
+            </li>
+        </ul>
+        ]]>
+    </change-notes>
     <extensions defaultExtensionNs="com.intellij">
         <applicationService serviceImplementation="com.github.boheastill.pd2.services.WriterService"/>
         <applicationService serviceImplementation="com.github.boheastill.pd2.services.ReaderService"/>
@@ -15,25 +64,18 @@
 
 
     <actions>
-        <group id="com.star.javadoc" text="CommentBook" description="a plugeu" popup="true">
+        <group id="com.star.javadoc" text="CommentBook" description="A plugin...." popup="true">
             <separator/>
             <group id="commentBookGroup"/>
             <add-to-group group-id="ToolsMenu" anchor="last"/>
             <action id="javadoc.generator" class="com.github.boheastill.pd2.actions.ReaderAction"
-                    text="展示" icon="AllIcons.General.Modified" description="display">
+                    text="展示" icon="AllIcons.General.Modified" description="Display">
                 <keyboard-shortcut keymap="$default" first-keystroke="ctrl BACK_SLASH"/>
             </action>
             <action id="javadoc.generator2" class="com.github.boheastill.pd2.actions.ReaderAction"
-                    text="搜索" icon="AllIcons.General.Modified" description="display">
+                    text="搜索" icon="AllIcons.General.Modified" description="Search">
                 <mouse-shortcut keystroke="control exeButton doubleClick" keymap="$default"/>
             </action>
         </group>
     </actions>
-
-    <application-components>
-        <!-- Add your application components here -->
-        <component>
-            <implementation-class>com.github.boheastill.pd2.A</implementation-class>
-        </component>
-    </application-components>
 </idea-plugin>

@@ -23,12 +23,6 @@
 
 执行
 
-
-
-
-
-
-
 ## function list
 
 - [x]  Press the shortcut key < KBD >Ctrl+\\</ KBD > to wake up the plugin function
@@ -81,12 +75,8 @@ reader alpha 0.1
 # REFERENCE
 
 <!-- Plugin description -->
-This Fancy IntelliJ Platform Plugin is going to be your implementation of the brilliant ideas that you have.
-
-This specific section is a source for the [plugin.xml](/src/main/resources/META-INF/plugin.xml) file which will be
-extracted by the [Gradle](/build.gradle.kts) during the build process.
-
-To keep everything working, do not remove `<!-- ... -->` sections.
+<p>readme部分插件描述：<br>
+描述信息：一个插件，让diea的注释区变成你的文本阅读器，Crtl+\ 为翻页键</p>
 <!-- Plugin description end -->
 
 ## Installation

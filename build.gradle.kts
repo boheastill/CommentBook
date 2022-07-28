@@ -70,17 +70,15 @@ tasks {
         untilBuild.set(properties("pluginUntilBuild"))
 
         // Extract the <!-- Plugin description --> section from README.md and provide for the plugin's manifest
-        pluginDescription.set(
-            projectDir.resolve("README.md").readText().lines().run {
-                val start = "<!-- Plugin description -->"
-                val end = "<!-- Plugin description end -->"
+        pluginDescription.set(projectDir.resolve("README.md").readText().lines().run {
+            val start = "<!-- Plugin description -->"
+            val end = "<!-- Plugin description end -->"
 
-                if (!containsAll(listOf(start, end))) {
-                    throw GradleException("Plugin description section not found in README.md:\n$start ... $end")
-                }
-                subList(indexOf(start) + 1, indexOf(end))
-            }.joinToString("\n").run { markdownToHTML(this) }
-        )
+            if (!containsAll(listOf(start, end))) {
+                throw GradleException("Plugin description section not found in README.md:\n$start ... $end")
+            }
+            subList(indexOf(start) + 1, indexOf(end))
+        }.joinToString("\n").run { markdownToHTML(this) })
 
         // Get the latest available change notes from the changelog file
         changeNotes.set(provider {
@@ -106,11 +104,14 @@ tasks {
     }
 
     publishPlugin {
+        token.set("perm:Ym9oZWFzdGlsbA==.OTItNjQ2NQ==.47M0jOAdB2OxrfLOZf0y1dXZpEFApa")
+        channels.set(listOf("alpha", "beta", "release"))
+
         dependsOn("patchChangelog")
-        token.set(System.getenv("PUBLISH_TOKEN"))
+//        token.set(System.getenv("PUBLISH_TOKEN"))
         // pluginVersion is based on the SemVer (https://semver.org) and supports pre-release labels, like 2.1.7-alpha.3
         // Specify pre-release label to publish the plugin in a custom Release Channel automatically. Read more:
         // https://plugins.jetbrains.com/docs/intellij/deployment.html#specifying-a-release-channel
-        channels.set(listOf(properties("pluginVersion").split('-').getOrElse(1) { "default" }.split('.').first()))
+//        channels.set(listOf(properties("pluginVersion").split('-').getOrElse(1) { "default" }.split('.').first()))
     }
 }
