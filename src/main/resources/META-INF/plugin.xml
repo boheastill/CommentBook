@@ -12,13 +12,6 @@
     <!--本地运行不取这里，除非前面再加一个。发布也部取这里，直接页面上传才行。以后redme的俩个注释之间，符合朴素预期-->
     <description>
         <![CDATA[
-        <p>plugin描述： 一个插件，让diea的注释区变成你的文本阅读器，Crtl+\ 为翻页键
-        <ul>
-            <li>支持向前翻页）、向后翻页、安全模式、搜索文本页码、跳转指定页/比例、存/取书签、加载指定路径txt文档等功能</li>
-            <li>先在右侧工具栏的GUI设置好要进行的操作，然后无脑Ctrl+\ 翻页/搜索/查询就行</li>
-        </ul>
-        </p>
-
         <p>An IDEA built-in TXT File reader
         <ul>
             <li> support forward page (+ number, number of customized to be completed)</li>
@@ -32,25 +25,38 @@
             <li>etc</li>
         </ul>
         </p>
+        <p>plugin描述： 一个插件，让diea的注释区变成你的文本阅读器，Crtl+\ 为翻页键
+        <ul>
+            <li>支持向前翻页）、向后翻页、安全模式、搜索文本页码、跳转指定页/比例、存/取书签、加载指定路径txt文档等功能</li>
+            <li>先在右侧工具栏的GUI设置好要进行的操作，然后无脑Ctrl+\ 翻页/搜索/查询就行</li>
+        </ul>
+        </p>
                  ]]>
     </description>
     <change-notes>
         <![CDATA[
         <ul>
-            <li><b>0.0.2</b>
-                1.在IDEA的右侧工具栏页面增加了GUI<br>
-                2.设计了一个插件图标<br>
-                3.初步写了使用文档<br>
-                4.支持加载本地文件<br>
+             <li><b>0.0.3</b>
+             1. The requirements shall be preceded by an English description<br>
+             2. Test the availability of different clients of the source code<br>
+             1.应审核需求前置英文描述<br>2.测试源码不同客户端的可用性完成<br></li>
+            <li><b>0.0.2</b><br>
                 1. The GUI is added to the right toolbar page of IDEA<br>
                 2. Design a plug-in icon<br>
                 3. Write a preliminary use document<br>
                 4.load specified path TXT document
+                1.在IDEA的右侧工具栏页面增加了GUI<br>
+                2.设计了一个插件图标<br>
+                3.初步写了使用文档<br>
+                4.支持加载本地文件<br>
+
             </li>
             <li>
-                <b>0.0.1</b>支持向前翻页）、向后翻页、安全模式、搜索文本页码、跳转指定页/比例、存/取书签、加载指定路径txt文档<br>
-                support forward page turning), backward page turning, safe mode, search text page number, jump to
-                specified page/proportion, save/fetch bookmark,
+                <b>0.0.1</b><br>
+                 support forward page turning), backward page turning, safe mode, search text page number, jump to
+                specified page/proportion, save/fetch bookmark,<br>
+                支持向前翻页）、向后翻页、安全模式、搜索文本页码、跳转指定页/比例、存/取书签、加载指定路径txt文档<br>
+
             </li>
         </ul>
         ]]>

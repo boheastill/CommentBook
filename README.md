@@ -75,8 +75,26 @@ reader alpha 0.1
 # REFERENCE
 
 <!-- Plugin description -->
-<p>readme部分插件描述：<br>
-描述信息：一个插件，让diea的注释区变成你的文本阅读器，Crtl+\ 为翻页键</p>
+
+<p>An IDEA built-in TXT File reader
+        <ul>
+            <li> support forward page (+ number, number of customized to be completed)</li>
+            <li>backward page (+ number)</li>
+            <li>,safe mode</li>
+            <li>search text page number</li>
+            <li> jump to specified page/proportion</li>
+            <li>save/fetch bookmarks</li>
+            <li>load specified path TXT document (to be completed)</li>
+            <li>download (to be completed) Display at the cursor position</li>
+            <li>etc</li>
+        </ul>
+        </p>
+        <p>readme描述： 一个插件，让diea的注释区变成你的文本阅读器，Crtl+\ 为翻页键
+        <ul>
+            <li>支持向前翻页）、向后翻页、安全模式、搜索文本页码、跳转指定页/比例、存/取书签、加载指定路径txt文档等功能</li>
+            <li>先在右侧工具栏的GUI设置好要进行的操作，然后无脑Ctrl+\ 翻页/搜索/查询就行</li>
+        </ul>
+        </p>
 <!-- Plugin description end -->
 
 ## Installation
