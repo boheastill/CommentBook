@@ -78,10 +78,10 @@
                     text="展示" icon="AllIcons.General.Modified" description="Display">
                 <keyboard-shortcut keymap="$default" first-keystroke="ctrl BACK_SLASH"/>
             </action>
-            <action id="javadoc.generator2" class="com.github.boheastill.pd2.actions.ReaderAction"
-                    text="搜索" icon="AllIcons.General.Modified" description="Search">
-                <mouse-shortcut keystroke="control exeButton doubleClick" keymap="$default"/>
-            </action>
+<!--            <action id="javadoc.generator2" class="com.github.boheastill.pd2.actions.ReaderAction"-->
+<!--                    text="搜索" icon="AllIcons.General.Modified" description="Search">-->
+<!--                <mouse-shortcut keystroke="control exeButton doubleClick" keymap="$default"/>-->
+<!--            </action>-->
         </group>
     </actions>
 </idea-plugin>
