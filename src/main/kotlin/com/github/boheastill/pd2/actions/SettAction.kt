@@ -2,10 +2,12 @@ package com.github.boheastill.pd2.actions
 
 import FunBoxValueI18n
 import com.github.boheastill.pd2.entity.BookEntity
+import com.github.boheastill.pd2.services.ReaderService
 import com.github.boheastill.pd2.toolWindow.ConfigView
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
+import com.intellij.openapi.components.ServiceManager
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 
@@ -16,6 +18,8 @@ class SettAction : AnAction() {
 
     private val bookEntity: BookEntity = BookEntity()
     var chachpath = ""
+    private val readerService: ReaderService = ServiceManager.getService(ReaderService::class.java)
+
 
     /**
      * 触发事件
@@ -38,11 +42,15 @@ class SettAction : AnAction() {
         var keyWord: String = configView.textField1.toString()
         var ouputFiled = configView.textField2
         ouputFiled?.text = "output"
+        var text = getText(action, keyWord)
+        readerService.showText(editor, project, text)
+    }
+
+    private fun getText(action: FunBoxValueI18n?, keyWord: String): String {
         var text = "无法解析语义"
         when (action) {
             FunBoxValueI18n.PRE -> {
                 text = bookEntity.previousPageNum(bookEntity.disChachNum, 1)
-
             }
 
             FunBoxValueI18n.NEXT -> {
@@ -104,7 +112,7 @@ class SettAction : AnAction() {
                         " * POJO包含： private static final long serialVersionUID = 1L;"
             }
         }
-
+        return text
     }
 
     /*业务逻辑*/
