@@ -12,6 +12,7 @@ class Tool2(toolWindow: ToolWindow) {
     private var exeButton: JButton? = null//执行按钮
     private var inputField: JTextField? = null//输入
     private var outPutPane: JTextPane? = null//输出
+    private var leagueBox: JComboBox<String>? = null//选择框
 
 
     //初始化
@@ -39,6 +40,9 @@ class Tool2(toolWindow: ToolWindow) {
             outPutStr.append(("select值为$select\n参数为 $input\n开始调用业务逻辑"))
             outPutPane?.text = outPutStr.toString()
         }
+
+
+
     }
 
     //标签，自排版,可以设置文本和文本前面的图标，增减字段要和form的字段对应

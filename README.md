@@ -1,53 +1,81 @@
-# 文本注释插件
+# 注释文档阅读器  [![Downloads](src/main/resources/META-INF/pluginIcon.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
 
-![Build](https://github.com/boheastill/pd2/workflows/Build/badge.svg)
-[![Downloads](https://img.shields.io/jetbrains/plugin/d/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
+----------------
+
+<!-- Plugin description -->
 
 ## 功能列表
 
-- [x] 1.按快捷键<kbd>Ctrl+\\</kbd>唤醒插件功能
-- [x] 2.光标所在位置会生成文本(如果光标选中，则会替换选中的全部文本)
-- [x] 3.再按<kbd>Ctrl+\\</kbd>，默认显示下一页，会替换调之前展示出的文本【潜在风险点：代码里的文本和阅读器文本一样，新代码默认替换了旧文本。解决：开个不重要的类，或光标选中区域，或文本加特征符号（待完成）】
-- [x] 4.在类注释输入指定命令，可以进行【向前翻页（+数量,数量自定待完成）、向后翻页（+数量）、安全模式、搜索文本页码、跳转指定页/比例、存/取书签、加载指定路径txt文档（待完成）、下载（待完成）】
-- [ ] 5.快捷键映射表见文档，支持自定义（待完成）
-- [x] 6.指定命令语法：
-  在类注释上，以<code>^</code>或<code>……</code>为开头和结尾为语法行，中间以空格分隔，如：<code>^前7^</code>,<code>
-  ……后1……</code>,
-  注释：语法行开头有斜杠被认为是注释，不解析，如：<code>^/前7^</code> <code>……\后1……</code>
-- [ ]  下载
-- [ ]  读取指定路径文档
-- [x] 截至2022-7-26,支持到最新预览版 IC-222.3345.90版本
-
-- ---
-功能|参数|
-
-执行
+- [x] 让类/方法的注释变为动态文本,默认使用<kbd>Ctrl+\\</kbd>向下翻页
+- [ ] txt文本导入到指定方法的注释中，支持用户指定每次显示行数
+- [x] 支持通过关键词搜索，让注释显示文本相应上下文内容
+- [x] 支持指定页码/比例，让注释显示文本相应上下文内容
+- [x] 支持把当前注释区域显示的文本，作为书签保存下来。
+- [x] 支持跳转到指定书签，让注释显示文本相应上下文内容
+- [ ] 支持通过网络下载指定文档
+- [ ] 支持通过访问服务器日志，来便捷的一边看日志报错信息，一边修复程序
+- [ ] 支持通过网络搜索指定关键词，获取网络中的信息，帮助更好的开发
+- [ ] 支持通过非gui的命令交互
 
 ## function list
 
-- [x]  Press the shortcut key < KBD >Ctrl+\\</ KBD > to wake up the plugin function
-
-- [x] Text is generated at the position where the cursor is located (if the cursor is selected, all selected text is
-  replaced)
-- [x]  Press < KBD >Ctrl+\\</ KBD >, the next page will be displayed by default, and the text displayed before the tone
-  will be replaced [Potential risk point: the text in the code is the same as the text in the reader, the new code
-  will replace the old text by default.
-- [x] Enter the specified command in the class annotation to carry
-  out [forward page turn (+ number, number customized to be completed), backward page turn (+ number), safe mode, search text page number, jump to specified page/proportion, save/fetch bookmark, load TXT document in specified path (to be completed), download (to be completed)]
-
-- []Shortcut key mapping table see the document, support custom (to be completed)
-- [x]  Specify the command syntax:
-  On class comments, start with <code>^</code> or <code>... </code> is the beginning and end of the syntax line,
-  separated by Spaces, for example: <code>^ First 7^</code>,<code>
-  ... After 1... </code>,
-  Comments: A syntax line with a slash at the beginning is considered a comment and is not parsed. For
-  example: <code>^/ first 7^</code> <code>... After \ 1... </code>
-- [] Download
-- [] Reads the document in the specified path
+- [x] makes class/method comments dynamic text and defaults to < KBD >Ctrl+\\</ KBD > to page down
+- [ ] TXT Imports the text to the annotation of the specified method. Users can specify the number of lines to be
+  displayed each time
+- [x] allows comments to display text in context by keyword search
+- [x] allows you to specify the page number/scale for comments to display text in context
+- [x] supports saving the text displayed in the current comment area as a bookmark.
+- [x] supports jumping to a specified bookmark, allowing comments to display text in context
+- [ ] Supports downloading specified documents over the network
+- [ ] Allows you to access the server logs to conveniently view the error information and fix the program at the same
+  time
+- [ ] You can search for specific keywords on the Internet to obtain information on the Internet, which facilitates
+  development
+- [ ] Supports interaction through non-GUI commands
 
 ---
 
-## 命令简述
+# description
+
+<div>
+<h3> Plug-in target </h3>
+<p> Establish the binding between code and document, so that it is easy to read the binding document without leaving IDEA. </p>
+<ul>
+<li> supports annotations for any class/method/field, bound to a text document (such as server log, requirements document, sample code, API document, web tutorial). </li>
+<li> The contents of the bound document are displayed in the comment area by pagination </li>
+The number of lines and the length of each line can be customized. </li>
+<li> Binding documents, support search, back and forth page, tag access, these operations can be triggered by clicking the GUI, can also be triggered by typing commands </li>
+</ul>
+</div>
+
+# 描述
+
+<div>
+  <h3>插件目标</h3>
+  <p>建立代码与文档的绑定，以便于在不离开IDEA的情况下，很方便的阅读绑定的文档。</p>
+  <ul>
+    <li>支持对任意类/方法/字段的注释，绑定一个文本文档（比如服务器日志、需求文档、示例代码、API文档、网络教程）。</li>
+    <li>被绑定的文档的内容，会按被分页的展示在注释区域</li>
+    <li>注释的区域，支持自定义行数、每行长度</li>
+    <li>被绑定的文档，支持搜索、前后翻页、标签存取，这些操作可以通过点击GUI触发，也可以通过输入命令的触发</li>
+  </ul>
+</div>
+
+<!-- Plugin description end -->
+----------------
+
+---
+
+## Note/注意事项
+
+- 插件等待加载完成再用
+- 代码误替换风险
+
+----
+
+# alpha内容：
+
+### 不使用gui的命令式交互参考
 
 - "l", "左", "前", "上" -> 向前翻页
 
@@ -63,53 +91,3 @@
 
 - "取", "签" -> 跳转到指定标签
   Download the [latest release](https://github.com/boheastill/pd2/releases/latest)
-
-## Note
-
-- 插件等待加载完成再用
-
----
-reader alpha 0.1
-----------------
-
-# REFERENCE
-
-<!-- Plugin description -->
-
-<p>An IDEA built-in TXT File reader
-        <ul>
-            <li> support forward page (+ number, number of customized to be completed)</li>
-            <li>backward page (+ number)</li>
-            <li>,safe mode</li>
-            <li>search text page number</li>
-            <li> jump to specified page/proportion</li>
-            <li>save/fetch bookmarks</li>
-            <li>load specified path TXT document (to be completed)</li>
-            <li>download (to be completed) Display at the cursor position</li>
-            <li>etc</li>
-        </ul>
-        </p>
-        <p>readme描述： 一个插件，让diea的注释区变成你的文本阅读器，Crtl+\ 为翻页键
-        <ul>
-            <li>支持向前翻页）、向后翻页、安全模式、搜索文本页码、跳转指定页/比例、存/取书签、加载指定路径txt文档等功能</li>
-            <li>先在右侧工具栏的GUI设置好要进行的操作，然后无脑Ctrl+\ 翻页/搜索/查询就行</li>
-        </ul>
-        </p>
-<!-- Plugin description end -->
-
-## Installation
-
-- Using IDE built-in plugin system:
-
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "pd2"</kbd> >
-  <kbd>Install Plugin</kbd>
-
-- Manually:
-
-  Download the [latest release](https://github.com/boheastill/pd2/releases/latest) and install it manually using
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
-
----
-Plugin based on the [IntelliJ Platform Plugin Template][template].
-
-[template]: https://github.com/JetBrains/intellij-platform-plugin-template

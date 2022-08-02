@@ -16,7 +16,7 @@ class ReaderService {
     //    var cstart: Int = 0
 //    var cend: Int = 0
     var chachText: String = ""
-    public var display: Boolean = true    //仅加载第一次触发为真
+     var display: Boolean = true    //仅加载第一次触发为真
 
     private val bookEntity: BookEntity = BookEntity()
     var chachpath = ""

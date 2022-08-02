@@ -7,6 +7,7 @@ import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.components.ServiceManager
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.ui.DialogBuilder
 import com.intellij.openapi.wm.ToolWindow
 import com.intellij.openapi.wm.ToolWindowManager
 import javax.swing.*
@@ -21,6 +22,8 @@ class ReaderAction : AnAction() {
      * todo 持久化   gui
      */
     override fun actionPerformed(anActionEvent: AnActionEvent) {
+
+
         print(anActionEvent)
         //1.获取参数
         val editor: Editor = anActionEvent.getRequiredData(CommonDataKeys.EDITOR)
@@ -33,20 +36,34 @@ class ReaderAction : AnAction() {
         //取得gui的内容
         val toolWindow: ToolWindow = ToolWindowManager.getInstance(project).getToolWindow("Comment Book") ?: return
         toolWindow.show({ })
-        var contentManager: JPanel = toolWindow.getContentManager().getContent(0)?.component as JPanel
 
-        val inputFiled: JTextField = contentManager.getComponent(0) as JTextField
+        var contentManager: JPanel = toolWindow.getContentManager().getContent(0)?.component as JPanel
+        contentManager.components.forEach {
+            println(it.javaClass.name)
+        }
+        /*
+        * javax.swing.JTextField
+javax.swing.JLabel
+javax.swing.JLabel
+javax.swing.JComboBox
+javax.swing.JTextPane
+javax.swing.JLabel
+javax.swing.JComboBox
+javax.swing.JButton
+javax.swing.JLabel*/
+        val inputFiled = contentManager.getComponent(0) as JTextField
         val inpurLabel = contentManager.getComponent(1) as JLabel
         val returnLabel = contentManager.getComponent(2) as JLabel
         val exeButton = contentManager.getComponent(3) as JButton
         val selectBox = contentManager.getComponent(4) as JComboBox<String>
         val outputFiled = contentManager.getComponent(5) as JTextPane
 
-        val message =
-            "inputFiled: ${inputFiled.text} \n inpurLabel: ${inpurLabel.text} \n returnLabel: ${returnLabel.text} \n exeButton: ${exeButton.text} \n selectBox: ${selectBox.selectedItem} \n outputFiled: ${outputFiled.text}"
-        println(message)
-        outputFiled.text = message
 
+        val message = "请输入文本"
+//            "inputFiled: ${inputFiled.text} \n inpurLabel: ${inpurLabel.text} \n returnLabel: ${returnLabel.text} \n exeButton: ${exeButton.text} \n selectBox: ${selectBox.selectedItem} \n outputFiled: ${outputFiled.text}"
+        selectBox
+        //返回
+        outputFiled.text = message
     }
 
     /*业务逻辑*/

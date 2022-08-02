@@ -36,10 +36,10 @@
     <change-notes>
         <![CDATA[
         <ul>
-             <li><b>0.0.3</b>
-             1. The requirements shall be preceded by an English description<br>
-             2. Test the availability of different clients of the source code<br>
-             1.应审核需求前置英文描述<br>2.测试源码不同客户端的可用性完成<br></li>
+            <li><b>0.0.3</b>
+                1. The requirements shall be preceded by an English description<br>
+                2. Test the availability of different clients of the source code<br>
+                1.应审核需求前置英文描述<br>2.测试源码不同客户端的可用性完成<br></li>
             <li><b>0.0.2</b><br>
                 1. The GUI is added to the right toolbar page of IDEA<br>
                 2. Design a plug-in icon<br>
@@ -53,7 +53,7 @@
             </li>
             <li>
                 <b>0.0.1</b><br>
-                 support forward page turning), backward page turning, safe mode, search text page number, jump to
+                support forward page turning), backward page turning, safe mode, search text page number, jump to
                 specified page/proportion, save/fetch bookmark,<br>
                 支持向前翻页）、向后翻页、安全模式、搜索文本页码、跳转指定页/比例、存/取书签、加载指定路径txt文档<br>
 
@@ -75,13 +75,13 @@
             <group id="commentBookGroup"/>
             <add-to-group group-id="ToolsMenu" anchor="last"/>
             <action id="javadoc.generator" class="com.github.boheastill.pd2.actions.ReaderAction"
-                    text="展示" icon="AllIcons.General.Modified" description="Display">
+                    text="执行配置" icon="AllIcons.General.Modified" description="Display">
                 <keyboard-shortcut keymap="$default" first-keystroke="ctrl BACK_SLASH"/>
             </action>
-<!--            <action id="javadoc.generator2" class="com.github.boheastill.pd2.actions.ReaderAction"-->
-<!--                    text="搜索" icon="AllIcons.General.Modified" description="Search">-->
-<!--                <mouse-shortcut keystroke="control exeButton doubleClick" keymap="$default"/>-->
-<!--            </action>-->
+            <action id="P" class="com.github.boheastill.pd2.actions.SettAction" text="P" description="P">
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt BACK_SLASH"/>
+            </action>
         </group>
+
     </actions>
 </idea-plugin>
