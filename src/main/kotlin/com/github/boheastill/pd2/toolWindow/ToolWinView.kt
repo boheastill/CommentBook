@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent
 import javax.swing.*
 
 /*类不是组件，只是存储的合集区域。类的字段才是组件，*/
-class Tool2(toolWindow: ToolWindow) {
+class ToolWinView(toolWindow: ToolWindow) {
 
     var allContent: JPanel? = null//容器
     private var selectBox: JComboBox<String>? = null//选择框

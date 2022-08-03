@@ -1,12 +1,12 @@
-enum class FunBoxValueI18n(var cn: String, var en: String) {
-    PRE("向前翻页（+数量,数量自定待完成）", "previous page（+number, number to be completed）"),
-    NEXT("向后翻页（+数量）", "next page（+number）"),
-    SAFE("安全模式", "safe mode"),
+enum class FunActionI18n(var cn: String, var en: String) {
+    NEXT("向后翻页（+页数）", "next page（can specify number）"),
+    PRE("向前翻页(+可指定页数，默认1)", "Previous page(specify the number, default 1)"),
+    LOAD("加载指定路径txt文档", "load specified path txt document"),
     SEARCH("搜索文本页码", "search text page number"),
     JUMPTO("跳转指定页/比例", "jump to specified page/ratio"),
     MARK_SET("存书签", "save bookmark"),
     MARK_GET("取书签", "load bookmark"),
-    LOAD("加载指定路径txt文档", "load specified path txt document"),
+    RANDOM("安全模式", "Random mode"),
     DOWN("下载（待完成）", "download（to be completed）");
 
     fun getText(league: String): String {
@@ -19,7 +19,7 @@ enum class FunBoxValueI18n(var cn: String, var en: String) {
 
 }
 
-fun getObjByText(text: String): FunBoxValueI18n {
+fun getObjByText(text: String): FunActionI18n {
     //根据FunBoxValueI18n的cn或en参数值获取对象
-    return FunBoxValueI18n.values().first { it.getText("cn") == text || it.getText("en") == text }
+    return FunActionI18n.values().first { it.getText("cn") == text || it.getText("en") == text }
 }

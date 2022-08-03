@@ -7,10 +7,9 @@ import com.intellij.openapi.actionSystem.CommonDataKeys
 import com.intellij.openapi.components.ServiceManager
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.ui.DialogBuilder
 import com.intellij.openapi.wm.ToolWindow
 import com.intellij.openapi.wm.ToolWindowManager
-import javax.swing.*
+import javax.swing.JPanel
 
 
 class ReaderAction : AnAction() {
@@ -22,18 +21,19 @@ class ReaderAction : AnAction() {
      * todo 持久化   gui
      */
     override fun actionPerformed(anActionEvent: AnActionEvent) {
-
-
         print(anActionEvent)
         //1.获取参数
         val editor: Editor = anActionEvent.getRequiredData(CommonDataKeys.EDITOR)
         val project: Project = anActionEvent.getRequiredData(CommonDataKeys.PROJECT)
-        //2.解析功能语义 && 3.分页逻辑3.0
-        var tarText = readerService.resoveLeagueStruct(editor, project)
+        //2.获取文本
+        var tarText = readerService.resoveLeagueStruct2(editor, project)
         //4.展示结果
         readerService.showText(editor, project, tarText)
-
         //取得gui的内容
+//        guitool(project)
+    }
+
+    private fun guitool(project: Project) {
         val toolWindow: ToolWindow = ToolWindowManager.getInstance(project).getToolWindow("Comment Book") ?: return
         toolWindow.show({ })
 
@@ -41,29 +41,6 @@ class ReaderAction : AnAction() {
         contentManager.components.forEach {
             println(it.javaClass.name)
         }
-        /*
-        * javax.swing.JTextField
-javax.swing.JLabel
-javax.swing.JLabel
-javax.swing.JComboBox
-javax.swing.JTextPane
-javax.swing.JLabel
-javax.swing.JComboBox
-javax.swing.JButton
-javax.swing.JLabel*/
-        val inputFiled = contentManager.getComponent(0) as JTextField
-        val inpurLabel = contentManager.getComponent(1) as JLabel
-        val returnLabel = contentManager.getComponent(2) as JLabel
-        val exeButton = contentManager.getComponent(3) as JButton
-        val selectBox = contentManager.getComponent(4) as JComboBox<String>
-        val outputFiled = contentManager.getComponent(5) as JTextPane
-
-
-        val message = "请输入文本"
-//            "inputFiled: ${inputFiled.text} \n inpurLabel: ${inpurLabel.text} \n returnLabel: ${returnLabel.text} \n exeButton: ${exeButton.text} \n selectBox: ${selectBox.selectedItem} \n outputFiled: ${outputFiled.text}"
-        selectBox
-        //返回
-        outputFiled.text = message
     }
 
     /*业务逻辑*/

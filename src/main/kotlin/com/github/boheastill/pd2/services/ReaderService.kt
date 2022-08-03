@@ -16,7 +16,7 @@ class ReaderService {
     //    var cstart: Int = 0
 //    var cend: Int = 0
     var chachText: String = ""
-     var display: Boolean = true    //仅加载第一次触发为真
+    var display: Boolean = true    //仅加载第一次触发为真
 
     private val bookEntity: BookEntity = BookEntity()
     var chachpath = ""
@@ -116,6 +116,14 @@ class ReaderService {
             }
         }
         return text
+    }
+
+    fun resoveLeagueStruct2(editor: Editor, project: Project): String {
+        if (display) {
+            display = false
+            return bookEntity.displaySignNum()
+        }
+        return bookEntity.nextPageNum(bookEntity.disChachNum, 1)
     }
 
     /**

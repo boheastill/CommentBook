@@ -16,11 +16,10 @@ class TollFactory : ToolWindowFactory {
      */
     override fun createToolWindowContent(project: Project, toolWindow: ToolWindow) {
         //获取AnActionEvent
-
 //        println("创建工具窗口")
         //todo 了解单构造函数为什么传入idea的工具窗口，和form、conten的关系
         //创建自定义组件
-        val guiWindow = Tool2(toolWindow)
+        val guiWindow = ToolWinView(toolWindow)
         val contentFactory = ContentFactory.SERVICE.getInstance()
         //给自定义窗口传一个panel和一个标题
         val content = contentFactory.createContent(guiWindow.allContent, "文本工具", false)
