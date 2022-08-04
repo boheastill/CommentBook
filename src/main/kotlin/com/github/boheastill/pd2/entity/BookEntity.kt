@@ -1,31 +1,27 @@
 package com.github.boheastill.pd2.entity
 
-import com.github.boheastill.pd2.services.ReaderService
 import com.github.boheastill.pd2.services.textStr
 import com.github.boheastill.pd2.util.groupDiv
 import java.io.File
 
 class BookEntity {
-    var souceText: String
-    var pageContenSize: Int
-    var maxPageNum: Int
-    var disChachNum: Int = 1
+    var textSource: String = ""
+    var contentLenth: Int = 0
+    var maxPageNum: Int = 0
+    var curDisNum: Int = 0
         set(value) {
             field = value
             println("展示页码: $field 并缓存")
         }
-    var souceTextLength: Int
+    var textSourceLenth: Int = 0
 
     //书签
     var markMap: HashMap<String, Int> = HashMap()
-
+    var isNewLoad: Boolean = true    //仅加载第一次触发为真
+    var textName: String = ""
 
     init {
-        this.souceText = textStr
-        this.souceTextLength = textStr.length
-        this.pageContenSize = 100
-        this.maxPageNum = groupDiv(souceText.length, pageContenSize)
-//        this.curPageNum = 1
+        loadBook(textStr, 100)
     }
 
     /**
@@ -41,14 +37,14 @@ class BookEntity {
             pageNum = 1
         }
         //缓存已展示页码
-        disChachNum = pageNum
-        var startPageIdx = (pageNum - 1) * pageContenSize
-        var endPageIdx = pageNum * pageContenSize
+        curDisNum = pageNum
+        var startPageIdx = (pageNum - 1) * contentLenth
+        var endPageIdx = pageNum * contentLenth
 
         val startIndex = startPageIdx
-        val endIndex = Math.min(endPageIdx, souceTextLength)
+        val endIndex = Math.min(endPageIdx, textSourceLenth)
 
-        val pageText = souceText.substring(startIndex, endIndex)
+        val pageText = textSource.substring(startIndex, endIndex)
         return pageText
     }
 
@@ -61,7 +57,7 @@ class BookEntity {
 
     /*显示标记页*/
     fun displaySignNum(): String {
-        var textByPageNum = getTextByPageNum(disChachNum)
+        var textByPageNum = getTextByPageNum(curDisNum)
         return textByPageNum
     }
 
@@ -77,29 +73,31 @@ class BookEntity {
     * 搜不到返回首页
     * */
     fun find(findStr: String): String {
-        var findpageNum = groupDiv(souceText.indexOf(findStr), pageContenSize)
+        var findpageNum = groupDiv(textSource.indexOf(findStr), contentLenth)
 
         return getTextByPageNum(findpageNum)
     }
 
-    fun loadFile2String(filePath: String) {
-
-        //加载文件
-
+    fun loadBookByPath(filePath: String) {
         val file = File(filePath)
         val fileReader = file.bufferedReader()
         var text = fileReader.readText()
         fileReader.close()
+        //filePath中截取文件名
+        val fileName = filePath.substring(filePath.lastIndexOf("/") + 1)
         //初始化
-        this.souceText = text
-        this.souceTextLength = text.length
-        this.pageContenSize = 100
-        this.maxPageNum = groupDiv(souceText.length, pageContenSize)
-        //输出信息
-        println("文本长度: ${souceText.length}")
-        println("页面长度: $pageContenSize")
-        println("页数: $maxPageNum")
+        loadBook(text, 100, fileName.substring(0, fileName.lastIndexOf(".")))
+    }
 
-        ReaderService().display = true
+
+    /*传入 完整字符 和 每页上限 */
+    private fun loadBook(text: String, contentLenth: Int, textName: String = "默认") {
+        this.contentLenth = contentLenth
+        this.isNewLoad = true
+        this.textSource = text
+        this.textSourceLenth = text.length
+        this.curDisNum = 1
+        this.maxPageNum = groupDiv(textSource.length, contentLenth)
+        this.textName = textName
     }
 }

@@ -47,7 +47,7 @@ class ConView : JDialog() {
         //容器
         setContentPane(contentPane)
         //窗口位置
-        minimumSize = Dimension(500, 400)
+        minimumSize = Dimension(500, 450)
         setLocationByPlatform(true)
         isModal = true
         //窗口事件
@@ -118,10 +118,10 @@ class ConView : JDialog() {
     }
 
     private fun refshBookInfo() {
-        var souceText = bookEntity.souceText
-        var pageContenSize = bookEntity.pageContenSize
-        var disChachNum = bookEntity.disChachNum
-        var souceTextLength = bookEntity.souceTextLength
+        var souceText = bookEntity.textSource
+        var pageContenSize = bookEntity.contentLenth
+        var disChachNum = bookEntity.curDisNum
+        var souceTextLength = bookEntity.textSourceLenth
         val bookInfo = "curNum:$disChachNum,allNum:$souceTextLength,contentLenth:$pageContenSize "
         infoField?.text = bookInfo
     }
@@ -133,11 +133,12 @@ class ConView : JDialog() {
         var text = "无法解析语义"
         when (action) {
             FunActionI18n.PRE -> {
-                text = bookEntity.previousPageNum(bookEntity.disChachNum, inputInt ?: 1)
+                text = bookEntity.previousPageNum(bookEntity.curDisNum, inputInt ?: 1)
             }
 
             FunActionI18n.NEXT -> {
-                text = bookEntity.nextPageNum(bookEntity.disChachNum, inputInt ?: 1)
+
+                text = bookEntity.nextPageNum(bookEntity.curDisNum, inputInt ?: 1)
             }
 
             FunActionI18n.DOWN -> {
@@ -146,11 +147,13 @@ class ConView : JDialog() {
 
             FunActionI18n.LOAD -> {
                 var path: String = inputFiled ?: return "路径空"
+//                如果存在，显示当前，否则创建并显示第一页
                 if (path != chachpath) {
-                    bookEntity.loadFile2String(path)
+                    bookEntity.loadBookByPath(path)
                     chachpath = path
-                    text = bookEntity.displaySignNum()
+                    //加载文档后，第一个操作应该是显示，后面的才是翻页
                 }
+                text = bookEntity.displaySignNum()
             }
 
             FunActionI18n.JUMPTO -> {
@@ -169,7 +172,7 @@ class ConView : JDialog() {
 
             FunActionI18n.MARK_SET -> {
                 var markLabel: String = inputFiled ?: return " 标签空 ";
-                bookEntity.markMap[markLabel] = bookEntity.disChachNum
+                bookEntity.markMap[markLabel] = bookEntity.curDisNum
                 text = "已经标记"
             }
 

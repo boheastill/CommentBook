@@ -16,7 +16,6 @@ class ReaderService {
     //    var cstart: Int = 0
 //    var cend: Int = 0
     var chachText: String = ""
-    var display: Boolean = true    //仅加载第一次触发为真
 
     private val bookEntity: BookEntity = BookEntity()
     var chachpath = ""
@@ -37,8 +36,8 @@ class ReaderService {
     fun resoveLeagueStruct(editor: Editor, project: Project): String {
 //        val path = "D:\\down\\webGet\\ZhuJieMoRiZaiXian.txt"
         //如果是展示，直接返回
-        if (display) {
-            display = false
+        if (bookEntity.isNewLoad) {
+            bookEntity.isNewLoad = false
             return bookEntity.displaySignNum()
         }
 
@@ -48,7 +47,7 @@ class ReaderService {
 
         //无语义，返回下一个文本
         if (keyWord == null || keyWord.substring(0, 1) == "/" || keyWord.substring(0, 1) == "\\") {
-            return bookEntity.nextPageNum(bookEntity.disChachNum, 1)
+            return bookEntity.nextPageNum(bookEntity.curDisNum, 1)
         }
         //按语义，返回
         var text = "无法解析语义"
@@ -57,16 +56,16 @@ class ReaderService {
             "加", "载", "读" -> {
                 var path = keyWord.substring(1)
                 if (path != chachpath) {
-                    bookEntity.loadFile2String(path)
+                    bookEntity.loadBookByPath(path)
                     chachpath = path
                     text = bookEntity.displaySignNum()
                 } else {
-                    text = bookEntity.nextPageNum(bookEntity.disChachNum, 1)
+                    text = bookEntity.nextPageNum(bookEntity.curDisNum, 1)
                 }
             }
 
             "l", "左", "前", "上" -> {
-                text = bookEntity.previousPageNum(bookEntity.disChachNum, 1)
+                text = bookEntity.previousPageNum(bookEntity.curDisNum, 1)
             }
 
             "s", "安" -> {
@@ -77,7 +76,7 @@ class ReaderService {
             }
 
             "r", "右", "后", "下" -> {
-                text = bookEntity.nextPageNum(bookEntity.disChachNum, 1)
+                text = bookEntity.nextPageNum(bookEntity.curDisNum, 1)
 
             }
 
@@ -100,7 +99,7 @@ class ReaderService {
 
             "标", "存" -> {
                 var markLabel = keyWord.substring(1)
-                bookEntity.markMap[markLabel] = bookEntity.disChachNum
+                bookEntity.markMap[markLabel] = bookEntity.curDisNum
                 text = "已经标记"
             }
 
@@ -119,11 +118,11 @@ class ReaderService {
     }
 
     fun resoveLeagueStruct2(editor: Editor, project: Project): String {
-        if (display) {
-            display = false
+        if (bookEntity.isNewLoad) {
+            bookEntity.isNewLoad = false
             return bookEntity.displaySignNum()
         }
-        return bookEntity.nextPageNum(bookEntity.disChachNum, 1)
+        return bookEntity.nextPageNum(bookEntity.curDisNum, 1)
     }
 
     /**

@@ -36,6 +36,18 @@
     <change-notes>
         <![CDATA[
         <ul>
+            <li><b>0.0.4</b>
+                1. Added a new popover GUI, which can be triggered by pressing  Ctrl+Shift+\  , supports both Chinese and
+                English, and contains some basic functions that can be executed by plug-ins <br>
+                2. Temporarily delete GUI < BR > in the right toolbar.<br>
+                3. Fixed an error with a shortcut key <br>
+                4. The test passed the function of loading documents and turning pages up and down on the new GUI <br>
+
+                1.增加了一个全新的弹窗GUI，按Ctrl+Shift+\ 触发，支持中英文，包含插件可执行的一些基本功能 <br>
+                2.暂时删除右侧工具栏的GUI <br>
+                3.修复了一个快捷键报错的问题<br>
+                4.测试通过了在新GUI上的加载文档、上下翻页等功能<br>
+            </li>
             <li><b>0.0.3</b>
                 1. The requirements shall be preceded by an English description<br>
                 2. Test the availability of different clients of the source code<br>
@@ -64,8 +76,8 @@
     <extensions defaultExtensionNs="com.intellij">
         <applicationService serviceImplementation="com.github.boheastill.pd2.services.WriterService"/>
         <applicationService serviceImplementation="com.github.boheastill.pd2.services.ReaderService"/>
-        <toolWindow id="Comment Book" secondary="true" icon="AllIcons.General.Modified" anchor="right"
-                    factoryClass="com.github.boheastill.pd2.toolWindow.TollFactory"/>
+        <!--        <toolWindow id="Comment Book" secondary="true" icon="AllIcons.General.Modified" anchor="right"-->
+        <!--                    factoryClass="com.github.boheastill.pd2.toolWindow.TollFactory"/>-->
     </extensions>
 
 

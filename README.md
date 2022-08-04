@@ -4,35 +4,6 @@
 
 <!-- Plugin description -->
 
-## 功能列表
-
-- [x] 让类/方法的注释变为动态文本,默认使用<kbd>Ctrl+\\</kbd>向下翻页
-- [ ] txt文本导入到指定方法的注释中，支持用户指定每次显示行数
-- [x] 支持通过关键词搜索，让注释显示文本相应上下文内容
-- [x] 支持指定页码/比例，让注释显示文本相应上下文内容
-- [x] 支持把当前注释区域显示的文本，作为书签保存下来。
-- [x] 支持跳转到指定书签，让注释显示文本相应上下文内容
-- [ ] 支持通过网络下载指定文档
-- [ ] 支持通过访问服务器日志，来便捷的一边看日志报错信息，一边修复程序
-- [ ] 支持通过网络搜索指定关键词，获取网络中的信息，帮助更好的开发
-- [ ] 支持通过非gui的命令交互
-
-## function list
-
-- [x] makes class/method comments dynamic text and defaults to < KBD >Ctrl+\\</ KBD > to page down
-- [ ] TXT Imports the text to the annotation of the specified method. Users can specify the number of lines to be
-  displayed each time
-- [x] allows comments to display text in context by keyword search
-- [x] allows you to specify the page number/scale for comments to display text in context
-- [x] supports saving the text displayed in the current comment area as a bookmark.
-- [x] supports jumping to a specified bookmark, allowing comments to display text in context
-- [ ] Supports downloading specified documents over the network
-- [ ] Allows you to access the server logs to conveniently view the error information and fix the program at the same
-  time
-- [ ] You can search for specific keywords on the Internet to obtain information on the Internet, which facilitates
-  development
-- [ ] Supports interaction through non-GUI commands
-
 ---
 
 # description
@@ -61,15 +32,47 @@ The number of lines and the length of each line can be customized. </li>
   </ul>
 </div>
 
-<!-- Plugin description end -->
-----------------
 
----
+## 功能列表
+- [x] <kbd>Ctrl+Shift+\\</kbd>,弹出一个支持中英文切换的可选择功能的窗口，可以在里面进行各种操作
+- [ ] 让类/方法的注释变为动态文本,默认使用<kbd>Ctrl+\\</kbd>向下翻页
+- [ ] txt文本导入到指定方法的注释中，支持用户指定每次显示行数
+- [x] 支持通过关键词搜索，让注释显示文本相应上下文内容
+- [x] 支持指定页码/比例，让注释显示文本相应上下文内容
+- [x] 支持把当前注释区域显示的文本，作为书签保存下来。
+- [x] 支持跳转到指定书签，让注释显示文本相应上下文内容
+- [ ] 支持通过网络下载指定文档
+- [ ] 支持通过访问服务器日志，来便捷的一边看日志报错信息，一边修复程序
+- [ ] 支持通过网络搜索指定关键词，获取网络中的信息，帮助更好的开发
+- [ ] 支持通过非gui的命令交互
+
+## function list
+- [x] <KBD>Ctrl+Shift+\\</KBD>, pop up a support Chinese and English switch selectable function window, you can carry out various operations in it
+- [ ] makes class/method comments dynamic text and defaults to < KBD >Ctrl+\\</ KBD > to page down
+- [ ] TXT Imports the text to the annotation of the specified method. Users can specify the number of lines to be
+  displayed each time
+- [x] allows comments to display text in context by keyword search
+- [x] allows you to specify the page number/scale for comments to display text in context
+- [x] supports saving the text displayed in the current comment area as a bookmark.
+- [x] supports jumping to a specified bookmark, allowing comments to display text in context
+- [ ] Supports downloading specified documents over the network
+- [ ] Allows you to access the server logs to conveniently view the error information and fix the program at the same
+  time
+- [ ] You can search for specific keywords on the Internet to obtain information on the Internet, which facilitates
+  development
+- [ ] Supports interaction through non-GUI commands
 
 ## Note/注意事项
 
 - 插件等待加载完成再用
 - 代码误替换风险
+
+
+<!-- Plugin description end -->
+----------------
+
+---
+
 
 ----
 
