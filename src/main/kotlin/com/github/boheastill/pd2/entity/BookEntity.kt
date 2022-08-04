@@ -92,12 +92,18 @@ class BookEntity {
 
     /*传入 完整字符 和 每页上限 */
     private fun loadBook(text: String, contentLenth: Int, textName: String = "默认") {
-        this.contentLenth = contentLenth
         this.isNewLoad = true
+        this.contentLenth = contentLenth
         this.textSource = text
         this.textSourceLenth = text.length
         this.curDisNum = 1
         this.maxPageNum = groupDiv(textSource.length, contentLenth)
         this.textName = textName
+        println("初始化完成")
     }
+
+    fun getTextBookInfo(): String {
+        return "curNum:$curDisNum,maxNum:$maxPageNum,contentLenth:$contentLenth,textName:$textName"
+    }
+
 }

@@ -1,8 +1,9 @@
 package com.github.boheastill.pd2.toolWindow
 
 import FunActionI18n
-import com.github.boheastill.pd2.entity.BookEntity
 import com.github.boheastill.pd2.entity.GuiLabel18n
+import com.github.boheastill.pd2.services.WriterService
+import com.intellij.openapi.components.ServiceManager
 import getObjByText
 import java.awt.Dimension
 import java.awt.event.ItemEvent
@@ -40,8 +41,7 @@ class ConView : JDialog() {
 
     //字段，用户最新操作
     var action: FunActionI18n? = FunActionI18n.NEXT//不切换默认后翻页
-    private val bookEntity: BookEntity = BookEntity()
-    var chachpath = ""
+    private val writerService: WriterService = ServiceManager.getService(WriterService::class.java)
 
     init {
         //容器
@@ -113,90 +113,9 @@ class ConView : JDialog() {
     }
 
     private fun onOK() {
-        outPutPane?.text = getText(action, inputFiled?.text?.trim())
-        refshBookInfo()
-    }
-
-    private fun refshBookInfo() {
-        var souceText = bookEntity.textSource
-        var pageContenSize = bookEntity.contentLenth
-        var disChachNum = bookEntity.curDisNum
-        var souceTextLength = bookEntity.textSourceLenth
-        val bookInfo = "curNum:$disChachNum,allNum:$souceTextLength,contentLenth:$pageContenSize "
+        outPutPane?.text = writerService.getTextByActionFiled(action, inputFiled?.text?.trim())
+        var bookInfo = writerService.getInfo()
         infoField?.text = bookInfo
-    }
-
-    private fun getText(action: FunActionI18n?, inputFiled: String?): String {
-        //转数字
-        var inputInt: Int? = inputFiled?.toIntOrNull()
-
-        var text = "无法解析语义"
-        when (action) {
-            FunActionI18n.PRE -> {
-                text = bookEntity.previousPageNum(bookEntity.curDisNum, inputInt ?: 1)
-            }
-
-            FunActionI18n.NEXT -> {
-
-                text = bookEntity.nextPageNum(bookEntity.curDisNum, inputInt ?: 1)
-            }
-
-            FunActionI18n.DOWN -> {
-                //todo
-            }
-
-            FunActionI18n.LOAD -> {
-                var path: String = inputFiled ?: return "路径空"
-//                如果存在，显示当前，否则创建并显示第一页
-                if (path != chachpath) {
-                    bookEntity.loadBookByPath(path)
-                    chachpath = path
-                    //加载文档后，第一个操作应该是显示，后面的才是翻页
-                }
-                text = bookEntity.displaySignNum()
-            }
-
-            FunActionI18n.JUMPTO -> {
-                var tarstr = inputFiled ?: return "跳转空"
-                var signPageNum: Int
-                if (tarstr.indexOf("%") != -1) {
-                    //tarstr转为百分数
-                    var ratePersent: Float = tarstr.replace("%", ".").toFloat().div(100)
-                    signPageNum = (ratePersent * bookEntity.maxPageNum).toInt()
-                } else {
-                    signPageNum = inputFiled.toIntOrNull() ?: 1
-                }
-                text = bookEntity.getTextByPageNum(signPageNum)
-            }
-
-
-            FunActionI18n.MARK_SET -> {
-                var markLabel: String = inputFiled ?: return " 标签空 ";
-                bookEntity.markMap[markLabel] = bookEntity.curDisNum
-                text = "已经标记"
-            }
-
-            FunActionI18n.MARK_GET -> {
-                var markLabel = inputFiled
-                var markPageNum = bookEntity.markMap[markLabel]
-                if (markPageNum != null) {
-                    text = bookEntity.getTextByPageNum(markPageNum)
-                } else {
-                    text = "没有标记"
-                }
-            }
-
-            FunActionI18n.SEARCH -> {
-                var findStr = inputFiled ?: return "请输入关键词"
-                text = bookEntity.find(findStr)
-            }
-
-            FunActionI18n.RANDOM -> {
-                text =
-                    "序列化方法\n" + " * 反序列化方法\n" + " * 实现 测试文本1 父类的POJO,\n" + " * POJO包含： private static final long serialVersionUID = 1L;"
-            }
-        }
-        return text
     }
 
 
@@ -205,13 +124,4 @@ class ConView : JDialog() {
         dispose()
     }
 
-    companion object {
-        @JvmStatic
-        fun main(args: Array<String>) {
-            val dialog = ConView()
-            dialog.pack()
-            dialog.isVisible = true
-            System.exit(0)
-        }
-    }
 }

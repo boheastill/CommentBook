@@ -10,6 +10,7 @@ import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 
 class SettAction : AnAction() {
+
     private val readerService: ReaderService = ServiceManager.getService(ReaderService::class.java)
 
     /**
@@ -21,7 +22,6 @@ class SettAction : AnAction() {
         //1.参数
         val editor: Editor = anActionEvent.getRequiredData(CommonDataKeys.EDITOR)
         val project: Project = anActionEvent.getRequiredData(CommonDataKeys.PROJECT)
-
         // 1.展示用户设置窗口并读取配置
         var conView = ConView();
         conView.isVisible = true;
@@ -29,6 +29,7 @@ class SettAction : AnAction() {
         var inputFiled = conView.inputFiled?.text
         var ouputFiled = conView.outPutPane?.text
 
+        readerService.showText(editor, project, conView.outPutPane?.text + "^-^" + conView.infoField?.text)
 //        var text = getText(action, inputFiled?.trim())
 //        ouputFiled = text
 //        readerService.showText(editor, project, text)

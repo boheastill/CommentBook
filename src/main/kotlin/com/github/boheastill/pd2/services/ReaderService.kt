@@ -13,10 +13,8 @@ import java.util.regex.Pattern
 
 /*todo 多返回值 ，跳页，固定位置*/
 class ReaderService {
-    //    var cstart: Int = 0
-//    var cend: Int = 0
-    var chachText: String = ""
 
+    var chachText: String = ""
     private val bookEntity: BookEntity = BookEntity()
     var chachpath = ""
 
@@ -33,6 +31,7 @@ class ReaderService {
      * 存/取书签
      * //todo 持久化含义集合，并支持自定义映射，增加映射冲突检查
      * */
+    @Deprecated("改用gui选择框转枚举类的的方式解析，语义识别会重写")
     fun resoveLeagueStruct(editor: Editor, project: Project): String {
 //        val path = "D:\\down\\webGet\\ZhuJieMoRiZaiXian.txt"
         //如果是展示，直接返回
@@ -117,14 +116,6 @@ class ReaderService {
         return text
     }
 
-    fun resoveLeagueStruct2(editor: Editor, project: Project): String {
-        if (bookEntity.isNewLoad) {
-            bookEntity.isNewLoad = false
-            return bookEntity.displaySignNum()
-        }
-        return bookEntity.nextPageNum(bookEntity.curDisNum, 1)
-    }
-
     /**
      * 光标 展示给定文本
      * 特定位置：优先替换光标选择文本，否则替换光标缓存的文本，否则在当前光标处生成文本块并缓存。
@@ -144,13 +135,16 @@ class ReaderService {
             val indexOf = document.getText().indexOf(chachText)
             //如果搜到了缓存的文本，替换该文本
             if (chachText.length != 0 && indexOf != -1) {
-
+                println("替换缓存文本")
                 start = indexOf
                 end = start + chachText.length
             } else {
+                println("无缓存文本 chachText.length = ${chachText.length} indexOf = $indexOf")
                 //没有缓存的文本，生成文本块
-                println("当前文本 $repText \n之前文本\n" + chachText)
+//                println("当前文本 $repText \nvar文本\n" + chachText)
             }
+        } else {
+            println("已选择内容 start: $start, end: $end")
         }
         // Replace the selection with a fixed string.
         // Must do this document change in a write action context.
@@ -165,7 +159,7 @@ class ReaderService {
         primaryCaret.removeSelection()
     }
 
-    /*文本格式化//todo 校验字符，防止误匹配原代码 风格可选*/
+    //文本格式化//todo 校验字符，防止误匹配原代码 风格可选 \ 校验字符，防止误匹配原代码
     fun textFormat(text: String): String {
         var ftext = text.trim().replace("\n", "").replace("\r", "").replace("\t", "")
         var length = ftext.length
@@ -176,19 +170,14 @@ class ReaderService {
 //            println("div: ${div}")
             stringBuilder.insert(div.toInt(), "\n\t")
         }
+        //添加一个信息行
+        var sbinfo = stringBuilder.append("\n\t------------------------").toString()
+            .replace("^-^", "\n\t------------------------\n\t")
 
         //按行分割
-        var textComentWapper = "/*\n\t $stringBuilder \n*/"
+        var textComentWapper = "/*\n\t $sbinfo \n*/"
         return textComentWapper
     }
-//    /*文本格式化//todo 校验字符，防止误匹配原代码*/
-//    fun textFormat(text: String): String {
-//        var ftext = text.trim().replace("\n", "").replace("\r", "").replace("\t", "")
-//            .replace("。", "。\n\t")
-//            .replace(".", ".\n\t")
-//        var wapperText = "/*\n\t $ftext \n*/"
-//        return wapperText
-//    }
 
 
     fun showText(editor: Editor, project: Project, text: String) {
@@ -197,6 +186,7 @@ class ReaderService {
         //文本展示
         textDisplayLogic(editor, project, wapperText)
     }
+
 
     fun getClassComent(editor: Editor, project: Project): String {
         var classConment = ""
@@ -211,6 +201,5 @@ class ReaderService {
         }
         return ""
     }
-
 
 }

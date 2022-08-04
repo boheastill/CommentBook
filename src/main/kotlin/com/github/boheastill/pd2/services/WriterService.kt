@@ -1,7 +1,7 @@
 package com.github.boheastill.pd2.services
 
-import com.intellij.openapi.actionSystem.AnActionEvent
-import com.intellij.openapi.actionSystem.LangDataKeys
+import FunActionI18n
+import com.github.boheastill.pd2.entity.BookEntity
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.command.CommandProcessor
 import com.intellij.openapi.command.WriteCommandAction
@@ -12,35 +12,102 @@ import com.intellij.openapi.project.Project
 import org.apache.commons.lang3.StringUtils
 
 
-class WriterService {/*fun write(project: Project?, psiElement: PsiElement, comment: PsiDocComment) {
-        try {
-            WriteCommandAction.writeCommandAction(project).run<Throwable>(
-                ThrowableRunnable<Throwable?> {
-                    if (psiElement.containingFile == null) {
-                        return@ThrowableRunnable
-                    }
+class WriterService {
+    private val bookEntity: BookEntity = BookEntity()
+    var chachpath = ""
 
-                    // 写入文档注释
-                    if (psiElement is PsiJavaDocumentedElement) {
-                        val psiDocComment: PsiDocComment = (psiElement as PsiJavaDocumentedElement).getDocComment()
-                        if (psiDocComment == null) {
-                            psiElement.node.addChild(comment.getNode(), psiElement.firstChild.node)
-                        } else {
-                            psiDocComment.replace(comment)
-                        }
-                    }
+    /*传入：动作
+    * 参数：参数
+    * 执行：给定的动作
+    * 返回：用户期望的文本*/
+    fun getTextByActionFiled(action: FunActionI18n?, inputFiled: String?): String {
 
-                    // 格式化文档注释
-                    val codeStyleManager = CodeStyleManager.getInstance(psiElement.project)
-                    val javadocElement = psiElement.firstChild
-                    val startOffset = javadocElement.textOffset
-                    val endOffset = javadocElement.textOffset + javadocElement.text.length
-                    codeStyleManager.reformatText(psiElement.containingFile, startOffset, endOffset + 1)
-                })
-        } catch (throwable: Throwable) {
-            LOGGER.error("写入错误", throwable)
+        //转数字
+        var inputInt: Int? = inputFiled?.toIntOrNull()
+
+        var text = "无法解析语义"
+        when (action) {
+            FunActionI18n.PRE -> {
+                text = bookEntity.previousPageNum(bookEntity.curDisNum, inputInt ?: 1)
+            }
+
+            FunActionI18n.NEXT -> {
+
+                text = bookEntity.nextPageNum(bookEntity.curDisNum, inputInt ?: 1)
+            }
+
+            FunActionI18n.DOWN -> {
+                //todo
+            }
+
+            FunActionI18n.LOAD -> {
+                var path: String = inputFiled ?: return "路径空"
+//                如果存在，显示当前，否则创建并显示第一页
+                if (path != chachpath) {
+                    bookEntity.loadBookByPath(path)
+                    chachpath = path
+                    //加载文档后，第一个操作应该是显示，后面的才是翻页
+                }
+                text = bookEntity.displaySignNum()
+            }
+
+            FunActionI18n.JUMPTO -> {
+                var tarstr = inputFiled ?: return "跳转空"
+                var signPageNum: Int
+                if (tarstr.indexOf("%") != -1) {
+                    //tarstr转为百分数
+                    var ratePersent: Float = tarstr.replace("%", ".").toFloat().div(100)
+                    signPageNum = (ratePersent * bookEntity.maxPageNum).toInt()
+                } else {
+                    signPageNum = inputFiled.toIntOrNull() ?: 1
+                }
+                text = bookEntity.getTextByPageNum(signPageNum)
+            }
+
+
+            FunActionI18n.MARK_SET -> {
+                var markLabel: String = inputFiled ?: return " 标签空 ";
+                bookEntity.markMap[markLabel] = bookEntity.curDisNum
+                text = "已经标记"
+            }
+
+            FunActionI18n.MARK_GET -> {
+                var markLabel = inputFiled
+                var markPageNum = bookEntity.markMap[markLabel]
+                if (markPageNum != null) {
+                    text = bookEntity.getTextByPageNum(markPageNum)
+                } else {
+                    text = "没有标记"
+                }
+            }
+
+            FunActionI18n.SEARCH -> {
+                var findStr = inputFiled ?: return "请输入关键词"
+                text = bookEntity.find(findStr)
+            }
+
+            FunActionI18n.RANDOM -> {
+                text =
+                    "序列化方法\n" + " * 反序列化方法\n" + " * 实现 测试文本1 父类的POJO,\n" + " * POJO包含： private static final long serialVersionUID = 1L;"
+            }
         }
-    }*/
+        return text
+    }
+
+    var dis: Boolean = true
+    fun getTextByNext(): String {
+        var text = ""
+        if (dis) {
+            dis = false
+            text = bookEntity.displaySignNum()
+        } else {
+            text = bookEntity.nextPageNum(bookEntity.curDisNum, 1)
+        }
+        return text + "^-^" + getInfo()
+    }
+
+     fun getInfo() = bookEntity.getTextBookInfo()
+
 
     /*替换文本*/
     fun write(project: Project, editor: Editor, text: String) {
@@ -64,33 +131,6 @@ class WriterService {/*fun write(project: Project?, psiElement: PsiElement, comm
             LOGGER.error("写入错误", throwable)
         }
     }
-
-    /*包含业务逻辑：行判定*/
-    fun write(anActionEvent: AnActionEvent, text: String) {
-        //text 格式化
-        var ftext = text.trim().replace("\n", "").replace("\r", "").replace("\t", "")
-            .replace("。", "。\n").replace(".", "\t.\n") //去除制表符
-        var wapperText = "/* $ftext */"
-
-        val project = anActionEvent.getData(LangDataKeys.PROJECT) ?: return //?:表示如果project为空，则返回null
-        //取出选中的文本
-        val editor = anActionEvent.getData(LangDataKeys.EDITOR)
-        if (editor != null) {
-            //用户滑选中的文本
-            val selectedText = editor.selectionModel.getSelectedText(true)
-            println("selectedText：$selectedText")
-            //todo 判断选中的是不是注释区域
-            val blank = true// StringUtils.isBlank(selectedText)
-            //把text包装为注释
-            if (blank) {
-                //这里就直接替换了原文
-                write(project, editor, wapperText)
-//                println("finished")
-
-            }
-        }
-    }
-
 
     companion object {
         private val LOGGER = Logger.getInstance(

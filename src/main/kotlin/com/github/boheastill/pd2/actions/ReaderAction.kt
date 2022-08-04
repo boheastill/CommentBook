@@ -1,6 +1,7 @@
 package com.github.boheastill.pd2.actions
 
 import com.github.boheastill.pd2.services.ReaderService
+import com.github.boheastill.pd2.services.WriterService
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
@@ -14,6 +15,7 @@ import javax.swing.JPanel
 
 class ReaderAction : AnAction() {
     private val readerService: ReaderService = ServiceManager.getService(ReaderService::class.java)
+    private val writerService: WriterService = ServiceManager.getService(WriterService::class.java)
 
 
     /**
@@ -26,9 +28,10 @@ class ReaderAction : AnAction() {
         val editor: Editor = anActionEvent.getRequiredData(CommonDataKeys.EDITOR)
         val project: Project = anActionEvent.getRequiredData(CommonDataKeys.PROJECT)
         //2.获取文本
-        var tarText = readerService.resoveLeagueStruct2(editor, project)
+//        var tarText = readerService.resoveLeagueStruct2(editor, project)
+        var textByNext = writerService.getTextByNext()
         //4.展示结果
-        readerService.showText(editor, project, tarText)
+        readerService.showText(editor, project, textByNext)
         //取得gui的内容
 //        guitool(project)
     }
