@@ -36,8 +36,14 @@
     <change-notes>
         <![CDATA[
         <ul>
+            <li><b>0.0.5</b>
+                1. 用户在<kbd>Ctrl+Shift+\ </kbd>窗口看到的输出文本，在窗口关闭后，会同步到代码光标位置。<br>
+                2.被同步的文本显示为注释的形式，可以<kbd>Ctrl+\</kbd>翻到下一页<br>
+                1. The output text seen by the user in the < KBD >Ctrl+Shift+\ </ KBD > window will be synchronized to the code cursor position after the window is closed. <br>
+                2. The synchronized text is displayed in the form of comments, you can < KBD >Ctrl+\</ KBD > turn to the next page <BR>
+            </li>
             <li><b>0.0.4</b>
-                1. Added a new popover GUI, which can be triggered by pressing  Ctrl+Shift+\  , supports both Chinese and
+                1. Added a new popover GUI, which can be triggered by pressing Ctrl+Shift+\ , supports both Chinese and
                 English, and contains some basic functions that can be executed by plug-ins <br>
                 2. Temporarily delete GUI < BR > in the right toolbar.<br>
                 3. Fixed an error with a shortcut key <br>

@@ -3,13 +3,8 @@
 ----------------
 
 <!-- Plugin description -->
-
----
-
-# description
-
 <div>
-<h3> Plug-in target </h3>
+<h3>Target</h3>
 <p> Establish the binding between code and document, so that it is easy to read the binding document without leaving IDEA. </p>
 <ul>
 <li> supports annotations for any class/method/field, bound to a text document (such as server log, requirements document, sample code, API document, web tutorial). </li>
@@ -19,10 +14,8 @@ The number of lines and the length of each line can be customized. </li>
 </ul>
 </div>
 
-# 描述
-
 <div>
-  <h3>插件目标</h3>
+  <h3>目标</h3>
   <p>建立代码与文档的绑定，以便于在不离开IDEA的情况下，很方便的阅读绑定的文档。</p>
   <ul>
     <li>支持对任意类/方法/字段的注释，绑定一个文本文档（比如服务器日志、需求文档、示例代码、API文档、网络教程）。</li>
@@ -31,7 +24,7 @@ The number of lines and the length of each line can be customized. </li>
     <li>被绑定的文档，支持搜索、前后翻页、标签存取，这些操作可以通过点击GUI触发，也可以通过输入命令的触发</li>
   </ul>
 </div>
-
+----
 
 ## 功能列表
 - [x] <kbd>Ctrl+Shift+\\</kbd>,弹出一个支持中英文切换的可选择功能的窗口，可以在里面进行各种操作
@@ -69,10 +62,6 @@ The number of lines and the length of each line can be customized. </li>
 
 
 <!-- Plugin description end -->
-----------------
-
----
-
 
 ----
 

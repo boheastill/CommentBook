@@ -106,7 +106,7 @@ tasks {
     publishPlugin {
         token.set("perm:Ym9oZWFzdGlsbA==.OTItNjQ2NQ==.47M0jOAdB2OxrfLOZf0y1dXZpEFApa")
 //        channels.set(listOf("alpha", "beta", "release"))
-        channels.set(listOf("alpha"))
+        channels.set(listOf("alpha", "beta"))
 //        channels.set(listOf("Stable"))
 
         dependsOn("patchChangelog")

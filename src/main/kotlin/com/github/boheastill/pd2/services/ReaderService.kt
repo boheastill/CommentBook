@@ -171,7 +171,7 @@ class ReaderService {
             stringBuilder.insert(div.toInt(), "\n\t")
         }
         //添加一个信息行
-        var sbinfo = stringBuilder.append("\n\t------------------------").toString()
+        var sbinfo = stringBuilder.toString()
             .replace("^-^", "\n\t------------------------\n\t")
 
         //按行分割
