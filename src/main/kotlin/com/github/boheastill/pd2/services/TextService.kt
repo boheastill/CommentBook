@@ -12,15 +12,17 @@ import com.intellij.openapi.project.Project
 import org.apache.commons.lang3.StringUtils
 
 
-class WriterService {
+class TextService {
+
     private val bookEntity: BookEntity = BookEntity()
+
     var chachpath = ""
 
-    /*传入：动作
-    * 参数：参数
-    * 执行：给定的动作
-    * 返回：用户期望的文本*/
-    fun getTextByActionFiled(action: FunActionI18n?, inputFiled: String?): String {
+    /**传入：动作
+     * 参数：参数
+     * 执行：用户输入的文本+命令
+     * 返回：用户期望的文本*/
+    fun dealOnUserOp(action: FunActionI18n?, inputFiled: String?): String {
 
         //转数字
         var inputInt: Int? = inputFiled?.toIntOrNull()
@@ -94,23 +96,29 @@ class WriterService {
         return text
     }
 
-    var dis: Boolean = true
-    fun getTextByNext(): String {
+    //用来标记文本是否首次显示
+    private var hasDis: Boolean = true
+
+    /**展示文本内容，如果当前 为空展示当前页，否则展示下一页
+     * 附加了一串补充信息
+     * */
+    fun getDisText(): String {
         var text = ""
-        if (dis) {
-            dis = false
+        if (hasDis) {
+            hasDis = false
             text = bookEntity.displaySignNum()
         } else {
             text = bookEntity.nextPageNum(bookEntity.curDisNum, 1)
         }
-        return text + "^-^" + getInfo()
+        var info = getInfo()
+        return text + "^-^" + info
     }
 
-     fun getInfo() = bookEntity.getTextBookInfo()
+    fun getInfo() = bookEntity.getTextBookInfo()
 
 
     /*替换文本*/
-    fun write(project: Project, editor: Editor, text: String) {
+    fun changeText(project: Project, editor: Editor, text: String) {
         if (StringUtils.isBlank(text)) {
             return
         }
@@ -130,16 +138,20 @@ class WriterService {
         } catch (throwable: Throwable) {
             LOGGER.error("写入错误", throwable)
         }
+    }    /*得到选中文本*/
+
+    fun cheakedText(project: Project, editor: Editor): String {
+        return editor.getSelectionModel().selectedText.toString()
     }
 
     companion object {
         private val LOGGER = Logger.getInstance(
-            WriterService::class.java
+            TextService::class.java
         )
     }
 }
 
-var textStr =
+var deafaltStr =
     "-豫章故郡，洪都新府。星分翼轸，地接衡庐。襟三江而带五湖，控蛮荆而引瓯越。物华天宝，龙光射牛斗之墟；人杰地灵，徐孺下陈蕃之榻。雄州雾列，俊采星驰。台隍枕夷夏之交，宾主尽东南之美。都督阎公之雅望，棨戟遥临；宇文新州之懿范，襜帷暂驻。十旬休假，胜友如云；千里逢迎，高朋满座。腾蛟起凤，孟学士之词宗；紫电青霜，王将军之武库。家君作宰，路出名区；童子何知，躬逢胜饯。\n" +
             "\n" +
             "时维九月，序属三秋。潦水尽而寒潭清，烟光凝而暮山紫。俨骖騑于上路，访风景于崇阿；临帝子之长洲，得天人之旧馆。层峦耸翠，上出重霄；飞阁流丹，下临无地。鹤汀凫渚，穷岛屿之萦回；桂殿兰宫，即冈峦之体势。\n" +

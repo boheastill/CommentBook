@@ -1,6 +1,6 @@
 package com.github.boheastill.pd2.entity
 
-import com.github.boheastill.pd2.services.textStr
+import com.github.boheastill.pd2.services.deafaltStr
 import com.github.boheastill.pd2.util.groupDiv
 import java.io.File
 
@@ -21,7 +21,7 @@ class BookEntity {
     var textName: String = ""
 
     init {
-        loadBook(textStr, 100)
+        loadBook(deafaltStr, 100)
     }
 
     /**

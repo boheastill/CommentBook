@@ -12,7 +12,7 @@ import com.intellij.psi.util.elementType
 import java.util.regex.Pattern
 
 /*todo 多返回值 ，跳页，固定位置*/
-class ReaderService {
+class ShowService {
 
     var chachText: String = ""
     private val bookEntity: BookEntity = BookEntity()
@@ -160,7 +160,7 @@ class ReaderService {
     }
 
     //文本格式化//todo 校验字符，防止误匹配原代码 风格可选 \ 校验字符，防止误匹配原代码
-    fun textFormat(text: String): String {
+    fun textWapper(text: String): String {
         var ftext = text.trim().replace("\n", "").replace("\r", "").replace("\t", "")
         var length = ftext.length
         var stringBuilder = StringBuilder(ftext)
@@ -175,14 +175,14 @@ class ReaderService {
             .replace("^-^", "\n\t------------------------\n\t")
 
         //按行分割
-        var textComentWapper = "/*\n\t $sbinfo \n*/"
+        var textComentWapper = "/**\n\t $sbinfo \n*/"
         return textComentWapper
     }
 
 
     fun showText(editor: Editor, project: Project, text: String) {
         //文本格式化
-        var wapperText = textFormat(text)
+        var wapperText = textWapper(text)
         //文本展示
         textDisplayLogic(editor, project, wapperText)
     }

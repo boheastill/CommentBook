@@ -1,8 +1,8 @@
-package com.github.boheastill.pd2.toolWindow
+  package com.github.boheastill.pd2.toolWindow
 
 import FunActionI18n
 import com.github.boheastill.pd2.entity.GuiLabel18n
-import com.github.boheastill.pd2.services.WriterService
+import com.github.boheastill.pd2.services.TextService
 import com.intellij.openapi.components.ServiceManager
 import getObjByText
 import java.awt.Dimension
@@ -41,7 +41,7 @@ class ConView : JDialog() {
 
     //字段，用户最新操作
     var action: FunActionI18n? = FunActionI18n.NEXT//不切换默认后翻页
-    private val writerService: WriterService = ServiceManager.getService(WriterService::class.java)
+    private val textService: TextService = ServiceManager.getService(TextService::class.java)
 
     init {
         //容器
@@ -80,7 +80,7 @@ class ConView : JDialog() {
     }
 
     private fun initLanguageRaw() {
-        //按钮合并组
+                                                                                             //按钮合并组
         var group = ButtonGroup()
         group.add(rb1)
         group.add(rb2)
@@ -101,10 +101,8 @@ class ConView : JDialog() {
         //标签
         label1?.text = GuiLabel18n.label118n.getText(league);
         label2?.text = GuiLabel18n.label218n.getText(league);
-        label3?.text = GuiLabel18n.label318n.getText(league);
-        label4?.text = GuiLabel18n.label418n.getText(league);
+        label3?.text = GuiLabel18n.label318n.getText(league)                                                 ;
         buttonOK?.text = GuiLabel18n.btlabel1.getText(league);
-        buttonCancel?.text = GuiLabel18n.btlabel2.getText(league);
         //先清空comboBox1中的元素
         comboBox1?.removeAllItems()
         for (i in FunActionI18n.values()) {
@@ -113,8 +111,9 @@ class ConView : JDialog() {
     }
 
     private fun onOK() {
-        outPutPane?.text = writerService.getTextByActionFiled(action, inputFiled?.text?.trim())
-        var bookInfo = writerService.getInfo()
+        outPutPane?.text = textService.dealOnUserOp(action, inputFiled?.text?.trim())
+
+        var bookInfo = textService.getInfo()
         infoField?.text = bookInfo
     }
 

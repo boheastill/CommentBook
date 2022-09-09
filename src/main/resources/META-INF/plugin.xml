@@ -39,49 +39,52 @@
             <li><b>0.0.5</b>
                 1. 用户在<kbd>Ctrl+Shift+\ </kbd>窗口看到的输出文本，在窗口关闭后，会同步到代码光标位置。<br>
                 2.被同步的文本显示为注释的形式，可以<kbd>Ctrl+\</kbd>翻到下一页<br>
-                1. The output text seen by the user in the < KBD >Ctrl+Shift+\ </ KBD > window will be synchronized to the code cursor position after the window is closed. <br>
-                2. The synchronized text is displayed in the form of comments, you can < KBD >Ctrl+\</ KBD > turn to the next page <BR>
-            </li>
-            <li><b>0.0.4</b>
-                1. Added a new popover GUI, which can be triggered by pressing Ctrl+Shift+\ , supports both Chinese and
-                English, and contains some basic functions that can be executed by plug-ins <br>
-                2. Temporarily delete GUI < BR > in the right toolbar.<br>
-                3. Fixed an error with a shortcut key <br>
-                4. The test passed the function of loading documents and turning pages up and down on the new GUI <br>
+                1. The output text seen by the user in the < KBD >Ctrl+Shift+\
+            </
+            KBD > window will be synchronized to the code cursor position after the window is closed. <br>
+            2. The synchronized text is displayed in the form of comments, you can < KBD >Ctrl+\
+        </ KBD > turn to the next page <BR>
+        </li>
+        <li><b>0.0.4</b>
+            1. Added a new popover GUI, which can be triggered by pressing Ctrl+Shift+\ , supports both Chinese and
+            English, and contains some basic functions that can be executed by plug-ins <br>
+            2. Temporarily delete GUI < BR > in the right toolbar.<br>
+            3. Fixed an error with a shortcut key <br>
+            4. The test passed the function of loading documents and turning pages up and down on the new GUI <br>
 
-                1.增加了一个全新的弹窗GUI，按Ctrl+Shift+\ 触发，支持中英文，包含插件可执行的一些基本功能 <br>
-                2.暂时删除右侧工具栏的GUI <br>
-                3.修复了一个快捷键报错的问题<br>
-                4.测试通过了在新GUI上的加载文档、上下翻页等功能<br>
-            </li>
-            <li><b>0.0.3</b>
-                1. The requirements shall be preceded by an English description<br>
-                2. Test the availability of different clients of the source code<br>
-                1.应审核需求前置英文描述<br>2.测试源码不同客户端的可用性完成<br></li>
-            <li><b>0.0.2</b><br>
-                1. The GUI is added to the right toolbar page of IDEA<br>
-                2. Design a plug-in icon<br>
-                3. Write a preliminary use document<br>
-                4.load specified path TXT document
-                1.在IDEA的右侧工具栏页面增加了GUI<br>
-                2.设计了一个插件图标<br>
-                3.初步写了使用文档<br>
-                4.支持加载本地文件<br>
+            1.增加了一个全新的弹窗GUI，按Ctrl+Shift+\ 触发，支持中英文，包含插件可执行的一些基本功能 <br>
+            2.暂时删除右侧工具栏的GUI <br>
+            3.修复了一个快捷键报错的问题<br>
+            4.测试通过了在新GUI上的加载文档、上下翻页等功能<br>
+        </li>
+        <li><b>0.0.3</b>
+            1. The requirements shall be preceded by an English description<br>
+            2. Test the availability of different clients of the source code<br>
+            1.应审核需求前置英文描述<br>2.测试源码不同客户端的可用性完成<br></li>
+        <li><b>0.0.2</b><br>
+            1. The GUI is added to the right toolbar page of IDEA<br>
+            2. Design a plug-in icon<br>
+            3. Write a preliminary use document<br>
+            4.load specified path TXT document
+            1.在IDEA的右侧工具栏页面增加了GUI<br>
+            2.设计了一个插件图标<br>
+            3.初步写了使用文档<br>
+            4.支持加载本地文件<br>
 
-            </li>
-            <li>
-                <b>0.0.1</b><br>
-                support forward page turning), backward page turning, safe mode, search text page number, jump to
-                specified page/proportion, save/fetch bookmark,<br>
-                支持向前翻页）、向后翻页、安全模式、搜索文本页码、跳转指定页/比例、存/取书签、加载指定路径txt文档<br>
+        </li>
+        <li>
+            <b>0.0.1</b><br>
+            support forward page turning), backward page turning, safe mode, search text page number, jump to
+            specified page/proportion, save/fetch bookmark,<br>
+            支持向前翻页）、向后翻页、安全模式、搜索文本页码、跳转指定页/比例、存/取书签、加载指定路径txt文档<br>
 
-            </li>
+        </li>
         </ul>
         ]]>
     </change-notes>
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.boheastill.pd2.services.WriterService"/>
-        <applicationService serviceImplementation="com.github.boheastill.pd2.services.ReaderService"/>
+        <applicationService serviceImplementation="com.github.boheastill.pd2.services.TextService"/>
+        <applicationService serviceImplementation="com.github.boheastill.pd2.services.ShowService"/>
         <!--        <toolWindow id="Comment Book" secondary="true" icon="AllIcons.General.Modified" anchor="right"-->
         <!--                    factoryClass="com.github.boheastill.pd2.toolWindow.TollFactory"/>-->
     </extensions>
@@ -92,12 +95,15 @@
             <separator/>
             <group id="commentBookGroup"/>
             <add-to-group group-id="ToolsMenu" anchor="last"/>
-            <action id="javadoc.generator" class="com.github.boheastill.pd2.actions.ReaderAction"
+            <action id="javadoc.generator" class="com.github.boheastill.pd2.actions.TextAction"
                     text="执行配置" icon="AllIcons.General.Modified" description="Display">
                 <keyboard-shortcut keymap="$default" first-keystroke="ctrl BACK_SLASH"/>
             </action>
-            <action id="P" class="com.github.boheastill.pd2.actions.SettAction" text="P" description="P">
+            <action id="P" class="com.github.boheastill.pd2.actions.ViewAction" text="P" description="P">
                 <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift BACK_SLASH"/>
+            </action>
+            <action id="T" class="com.github.boheastill.pd2.actions.TraAction" text="T" description="T">
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl 0"/>
             </action>
         </group>
 

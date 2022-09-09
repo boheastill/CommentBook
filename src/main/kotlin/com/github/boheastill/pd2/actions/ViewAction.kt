@@ -1,6 +1,6 @@
 package com.github.boheastill.pd2.actions
 
-import com.github.boheastill.pd2.services.ReaderService
+import com.github.boheastill.pd2.services.ShowService
 import com.github.boheastill.pd2.toolWindow.ConView
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
@@ -9,9 +9,9 @@ import com.intellij.openapi.components.ServiceManager
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project
 
-class SettAction : AnAction() {
+class ViewAction : AnAction() {
 
-    private val readerService: ReaderService = ServiceManager.getService(ReaderService::class.java)
+    private val showService: ShowService = ServiceManager.getService(ShowService::class.java)
 
     /**
      * 触发事件
@@ -29,7 +29,7 @@ class SettAction : AnAction() {
         var inputFiled = conView.inputFiled?.text
         var ouputFiled = conView.outPutPane?.text
 
-        readerService.showText(editor, project, conView.outPutPane?.text + "^-^" + conView.infoField?.text)
+        showService.showText(editor, project, conView.outPutPane?.text + "^-^" + conView.infoField?.text)
 //        var text = getText(action, inputFiled?.trim())
 //        ouputFiled = text
 //        readerService.showText(editor, project, text)
