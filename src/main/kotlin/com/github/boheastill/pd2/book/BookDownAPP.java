@@ -3,6 +3,7 @@ package com.github.boheastill.pd2.book;
 
 import com.github.boheastill.pd2.book.service.CataChapParseI;
 import com.github.boheastill.pd2.book.service.PCA;
+import com.github.boheastill.pd2.book.util.CodeGennerate;
 import com.github.boheastill.pd2.book.vo.Catalogue;
 import com.github.boheastill.pd2.book.vo.Chapter;
 import com.github.boheastill.pd2.book.vo.ProcessStatu;
@@ -12,9 +13,11 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
-;
 import static com.github.boheastill.pd2.book.util.ChangeToPinYinJP.getPyName;
 import static com.github.boheastill.pd2.book.util.IORecord.recordTime;
+import static com.github.boheastill.pd2.book.util.IORecord.save2File;
+
+;
 
 /**
  * 多线程问题
@@ -36,8 +39,8 @@ public class BookDownAPP {
 
 
     public static void main(String[] args) throws IOException {
-        String fileName = "诸界末日在线";
-        String chapterStartKey = "久别之后的重逢";
+        String fileName = "我导演了玄武门事变";
+        String chapterStartKey = "";
         new BookDownAPP().bookStart(fileName, chapterStartKey);
     }
 

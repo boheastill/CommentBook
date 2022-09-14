@@ -100,10 +100,10 @@
                 <keyboard-shortcut keymap="$default" first-keystroke="ctrl BACK_SLASH"/>
             </action>
             <action id="P" class="com.github.boheastill.pd2.actions.ViewAction" text="P" description="P">
-                <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift BACK_SLASH"/>
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl 0"/>
             </action>
             <action id="T" class="com.github.boheastill.pd2.actions.TraAction" text="T" description="T">
-                <keyboard-shortcut keymap="$default" first-keystroke="ctrl 0"/>
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl 9"/>
             </action>
         </group>
 
